@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.8.10)  10 AUG 2022 20:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.8.10)  11 AUG 2022 04:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1010,55 +1010,55 @@ Overfull \hbox (8.34897pt too wide) in paragraph at lines 72--73
 [1
 
 {/opt/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (1.54018pt too wide) in paragraph at lines 86--87
-\T2A/cmr/m/it/12 множеством вершин $\OML/cmm/m/it/12 U \OMS/cmsy/m/n/12 ^^Z \OM
-L/cmm/m/it/12 V$\T2A/cmr/m/it/12 , если ребрами $\OMS/cmsy/m/n/12 H$ \T2A/cmr/m
-/it/12 являются те и только те ребра множества
+Overfull \hbox (19.29582pt too wide) in paragraph at lines 90--91
+\T2A/cmr/m/it/12 подмножеством вершин $\OML/cmm/m/it/12 U \OMS/cmsy/m/n/12 ^^Z 
+\OML/cmm/m/it/12 V$\T2A/cmr/m/it/12 , если ребрами $\OMS/cmsy/m/n/12 H$ \T2A/cm
+r/m/it/12 являются те и только те ребра множества
  []
 
 
-Overfull \hbox (25.59422pt too wide) in paragraph at lines 89--89
+Overfull \hbox (25.59422pt too wide) in paragraph at lines 93--93
 []\T2A/cmr/bx/n/17.28 Примитивность вещественной неотрицательной матрицы 
  []
 
 
-Overfull \hbox (12.10228pt too wide) in paragraph at lines 91--92
+Overfull \hbox (12.10228pt too wide) in paragraph at lines 95--96
 [][]\T2A/cmr/bx/n/12 Определение 3.1. []\T2A/cmr/m/it/12 Вещественная матрица $
 \OML/cmm/m/it/12 A$ \T2A/cmr/m/it/12 называется примитивной, если существует
  []
 
 
-Overfull \hbox (22.75061pt too wide) in paragraph at lines 91--92
+Overfull \hbox (22.75061pt too wide) in paragraph at lines 95--96
 \T2A/cmr/m/it/12 натуральное число $\OML/cmm/m/it/12 m$ \T2A/cmr/m/it/12 такое,
  что $\OML/cmm/m/it/12 A[]$ \T2A/cmr/m/it/12 положительна, то есть все числа в 
 ней положительны.
  []
 
 
-Overfull \hbox (0.8918pt too wide) in paragraph at lines 95--96
+Overfull \hbox (0.8918pt too wide) in paragraph at lines 99--100
 [][]\T2A/cmr/bx/n/12 Теорема 3.2 \T2A/cmr/m/n/12 (Критерий примитивности матриц
 ы, см.[[]])\T2A/cmr/bx/n/12 . []\T2A/cmr/m/it/12 Неотрицательная квадратная
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 106.
+(hyperref)                removing `math shift' on input line 110.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\times' on input line 106.
+(hyperref)                removing `\times' on input line 110.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 106.
+(hyperref)                removing `math shift' on input line 110.
 
 [2]
-Underfull \hbox (badness 10000) detected at line 129
+Underfull \hbox (badness 10000) detected at line 133
  []$[]   [] \OMS/cmsy/m/n/12 ^^A [] \OT1/cmr/m/n/12 = [] = []  $ 
  []
 
 [3]
-Overfull \hbox (23.3223pt too wide) in paragraph at lines 260--261
+Overfull \hbox (23.3223pt too wide) in paragraph at lines 264--265
 [][]\T2A/cmr/bx/n/12 Теорема 4.7 \T2A/cmr/m/n/12 (Вилантда для тропических матр
 иц)\T2A/cmr/bx/n/12 . []\T2A/cmr/m/it/12 Если матрица $\OML/cmm/m/it/12 A \OMS/
 cmsy/m/n/12 2 \OML/cmm/m/it/12 M[]\OT1/cmr/m/n/12 (\U/msb/m/n/12 R[]\OT1/cmr/m/
@@ -1066,32 +1066,32 @@ n/12 )$ \T2A/cmr/m/it/12 примитивна,
  []
 
 [4]
-Overfull \hbox (9.29538pt too wide) in paragraph at lines 300--301
+Overfull \hbox (9.29538pt too wide) in paragraph at lines 304--305
 []\T2A/cmr/m/n/12 Степени тропических матриц интересны по многим причинам, в то
 м числе по следующей: 
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 318.
+(hyperref)                removing `math shift' on input line 322.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\times' on input line 318.
+(hyperref)                removing `\times' on input line 322.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 318.
+(hyperref)                removing `math shift' on input line 322.
 
 Excluding 'comment' comment.
-Overfull \hbox (35.31886pt too wide) in paragraph at lines 370--371
+Overfull \hbox (35.31886pt too wide) in paragraph at lines 374--375
 [][]\T2A/cmr/bx/n/12 Определение 6.1. []\T2A/cmr/m/it/12 Граф $\OMS/cmsy/m/n/12
  G[]$ \T2A/cmr/m/it/12 гомоморфен графу $\OMS/cmsy/m/n/12 G[]$\T2A/cmr/m/it/12 
 , если существует сюръективное отображение
  []
 
 [5]
-Overfull \hbox (41.90775pt too wide) in paragraph at lines 379--380
+Overfull \hbox (41.90775pt too wide) in paragraph at lines 383--384
 []\T2A/cmr/m/it/12 Если $\OMS/cmsy/m/n/12 G$ \T2A/cmr/m/it/12 сильно связен, и 
 $\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 V\OT1/cmr/m/n/12 (\OMS/cmsy/m/n/12 G\OT1/cm
 r/m/n/12 )\OMS/cmsy/m/n/12 j ^^U \OT1/cmr/m/n/12 2$\T2A/cmr/m/it/12 , то циклич
@@ -1099,39 +1099,39 @@ r/m/n/12 )\OMS/cmsy/m/n/12 j ^^U \OT1/cmr/m/n/12 2$\T2A/cmr/m/it/12 , то циклич
  []
 
 
-Overfull \hbox (39.67348pt too wide) in paragraph at lines 381--382
+Overfull \hbox (39.67348pt too wide) in paragraph at lines 385--386
 []\T2A/cmr/m/it/12 Если $\OMS/cmsy/m/n/12 G$ \T2A/cmr/m/it/12 не сильно связен,
  то его цикличность равна НОК цикличностей всех максимальных
  []
 
 
-Overfull \hbox (24.22987pt too wide) in paragraph at lines 384--385
+Overfull \hbox (24.22987pt too wide) in paragraph at lines 388--389
 [][]\T2A/cmr/bx/n/12 Замечание 6.4 \T2A/cmr/m/n/12 (Переформулировка критерия п
 римитивности, см.[[]])\T2A/cmr/bx/n/12 . []\T2A/cmr/m/it/12 Тропическая матрица
 
  []
 
 
-Overfull \hbox (42.12346pt too wide) in paragraph at lines 401--402
+Overfull \hbox (42.12346pt too wide) in paragraph at lines 405--406
 [][]\T2A/cmr/bx/n/12 Определение 6.7. []\T2A/cmr/m/it/12 Ориентированный цикл н
 азывается критическим, если у него максимальный
  []
 
 
-Overfull \hbox (17.34744pt too wide) in paragraph at lines 414--414
+Overfull \hbox (17.34744pt too wide) in paragraph at lines 418--418
 [][]\T2A/cmr/bx/n/12 Определение 7.2. []\T2A/cmr/m/it/12 Графом Виландта называ
 ется ориентированный граф на $\OML/cmm/m/it/12 n \OMS/cmsy/m/n/12 ^^U \OT1/cmr/
 m/n/12 2$ \T2A/cmr/m/it/12 вершинах
  []
 
 [6]
-Overfull \hbox (36.40782pt too wide) in paragraph at lines 461--462
+Overfull \hbox (36.40782pt too wide) in paragraph at lines 465--466
 []\T2A/cmr/m/it/12 Назовем тропическую матрицу $\OML/cmm/m/it/12 A$ \T2A/cmr/m/
 it/12 (или соответствующий ей граф) полностью разложимой,
  []
 
 [7]
-Overfull \hbox (30.82767pt too wide) in paragraph at lines 505--506
+Overfull \hbox (30.82767pt too wide) in paragraph at lines 509--510
 []\T2A/cmr/m/n/12 Если матрицы $\OML/cmm/m/it/12 C; S; R$ \T2A/cmr/m/n/12 опред
 елены через матрицу $\OML/cmm/m/it/12 A$\T2A/cmr/m/n/12 , будем писать $\OML/cm
 m/m/it/12 CS[]R\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 A\OT1/cmr/m/n/12 ]$ \T2A/cmr/m
@@ -1139,37 +1139,32 @@ m/m/it/12 CS[]R\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 A\OT1/cmr/m/n/12 ]$ \T2A/cmr/m
  []
 
 [8] [9]
-Overfull \hbox (1.33867pt too wide) in paragraph at lines 609--610
-\T2A/cmr/m/it/12 Здесь и далее, $\OML/cmm/m/it/12 DM\OT1/cmr/m/n/12 ([]\OML/cmm
-/m/it/12 ; n\OT1/cmr/m/n/12 )$ \T2A/cmr/m/it/12 --- число Далмаджа-Мендельсона,
- которое, как и число Виландта,
- []
-
 <ForwardCycle.png, id=282, 478.03593pt x 441.90094pt>
 File: ForwardCycle.png Graphic file (type png)
 <use ForwardCycle.png>
-Package pdftex.def Info: ForwardCycle.png  used on input line 628.
+Package pdftex.def Info: ForwardCycle.png  used on input line 634.
 (pdftex.def)             Requested size: 290.22105pt x 268.28477pt.
+
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 <BidirectionalCycle.png, id=284, 478.03593pt x 442.65375pt>
 File: BidirectionalCycle.png Graphic file (type png)
 <use BidirectionalCycle.png>
-Package pdftex.def Info: BidirectionalCycle.png  used on input line 649.
+Package pdftex.def Info: BidirectionalCycle.png  used on input line 655.
 (pdftex.def)             Requested size: 290.22105pt x 268.7418pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [10] [11 <./ForwardCycle.png (PNG copy)>] [12 <./BidirectionalCycle.png (PNG co
 py)>]
-<2Cycles.png, id=311, 512.66531pt x 301.125pt>
+<2Cycles.png, id=312, 512.66531pt x 301.125pt>
 File: 2Cycles.png Graphic file (type png)
 <use 2Cycles.png>
-Package pdftex.def Info: 2Cycles.png  used on input line 726.
+Package pdftex.def Info: 2Cycles.png  used on input line 732.
 (pdftex.def)             Requested size: 290.22105pt x 170.46675pt.
 
-Overfull \hbox (2.9278pt too wide) in paragraph at lines 731--732
+Overfull \hbox (2.9278pt too wide) in paragraph at lines 737--738
 []\T2A/cmr/m/n/12 Следовательно, при $\OML/cmm/m/it/12 t \OMS/cmsy/m/n/12 ^^U \
 OML/cmm/m/it/12 T\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 A\OT1/cmr/m/n/12 )$ \T2A/cmr
 /m/n/12 верно $\OML/cmm/m/it/12 CS[]R\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 A\OT1/cm
@@ -1178,7 +1173,7 @@ r/m/n/12 ] = \OML/cmm/m/it/12 A[]A[]A[] \OT1/cmr/m/n/12 = \OML/cmm/m/it/12 A[]$
  []
 
 [13 <./2Cycles.png (PNG copy)>]
-Overfull \hbox (6.34476pt too wide) in paragraph at lines 777--777
+Overfull \hbox (6.34476pt too wide) in paragraph at lines 783--783
 []\T2A/cmr/m/n/12 Для доказательства утверждения надо показать, что для любых $
 \OML/cmm/m/it/12 x; y$ \T2A/cmr/m/n/12 существует решение
  []
@@ -1186,40 +1181,40 @@ Overfull \hbox (6.34476pt too wide) in paragraph at lines 777--777
 [14] [15]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 864.
+(hyperref)                removing `math shift' on input line 870.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 864.
+(hyperref)                removing `math shift' on input line 870.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 864.
+(hyperref)                removing `math shift' on input line 870.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 864.
+(hyperref)                removing `math shift' on input line 870.
 
 [16]
-Overfull \hbox (8.33635pt too wide) in paragraph at lines 882--883
+Overfull \hbox (8.33635pt too wide) in paragraph at lines 888--889
 []\T2A/cmr/m/n/12 По утверждению []8.9[] выполняется равенство $\OML/cmm/m/it/1
 2 CS[]R \OT1/cmr/m/n/12 = \OML/cmm/m/it/12 CS[]R$\T2A/cmr/m/n/12 . Значит, $\OM
 L/cmm/m/it/12 CS[]R \OT1/cmr/m/n/12 = \OML/cmm/m/it/12 CS[]R \OT1/cmr/m/n/12 =
  []
 
-<negativeCycles.png, id=348, 462.22687pt x 236.38312pt>
+<negativeCycles.png, id=349, 462.22687pt x 236.38312pt>
 File: negativeCycles.png Graphic file (type png)
 <use negativeCycles.png>
-Package pdftex.def Info: negativeCycles.png  used on input line 890.
+Package pdftex.def Info: negativeCycles.png  used on input line 896.
 (pdftex.def)             Requested size: 338.5863pt x 173.15338pt.
 
-Overfull \hbox (9.71211pt too wide) in paragraph at lines 900--901
+Overfull \hbox (9.71211pt too wide) in paragraph at lines 906--907
 []\T2A/cmr/m/n/12 В этом примере матрица $\OML/cmm/m/it/12 B$ \T2A/cmr/m/n/12 н
 етривиальна: она получается из $\OML/cmm/m/it/12 A$ \T2A/cmr/m/n/12 заменой
  []
 
 [17 <./negativeCycles.png (PNG copy)>]
-Overfull \hbox (2.31349pt too wide) in paragraph at lines 940--941
+Overfull \hbox (2.31349pt too wide) in paragraph at lines 946--947
 \OT1/cmr/m/n/12 1$ \T2A/cmr/m/n/12 вершин. Пусть вершина, в которой пересекаютс
 я все циклы, имеет номер $\OT1/cmr/m/n/12 1$\T2A/cmr/m/n/12 . Пронумеруем
  []
@@ -1227,47 +1222,47 @@ Overfull \hbox (2.31349pt too wide) in paragraph at lines 940--941
 [18]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 944.
+(hyperref)                removing `math shift' on input line 950.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 944.
+(hyperref)                removing `math shift' on input line 950.
 
 
-Overfull \hbox (10.47202pt too wide) in paragraph at lines 956--957
+Overfull \hbox (10.47202pt too wide) in paragraph at lines 962--963
 []\T2A/cmr/m/n/12 Таким образом, при расчјте границы $\OML/cmm/m/it/12 T$ \T2A/
 cmr/m/n/12 для произвольной ромашки достаточно посчитать
  []
 
 
-Overfull \hbox (13.58383pt too wide) in paragraph at lines 960--961
+Overfull \hbox (13.58383pt too wide) in paragraph at lines 966--967
 [][]\T2A/cmr/bx/n/12 Замечание 10.3. []\T2A/cmr/m/it/12 При $\OML/cmm/m/it/12 ^
 ^[ \OT1/cmr/m/n/12 = 1$ $(\OML/cmm/m/it/12 a[]; [] ; a[]\OT1/cmr/m/n/12 ; 1)$\T
 2A/cmr/m/it/12 -ромашка примитивна. Более того, выполняются
  []
 
 
-Overfull \hbox (30.66917pt too wide) in paragraph at lines 965--966
+Overfull \hbox (30.66917pt too wide) in paragraph at lines 971--972
 \OML/cmm/m/it/12 a[]$ \T2A/cmr/m/it/12 обозначим через $\OML/cmm/m/it/12 P\OT1/
 cmr/m/n/12 (\OML/cmm/m/it/12 a[]; [] ; a[]\OT1/cmr/m/n/12 )$ \T2A/cmr/m/it/12 м
 инимальное целое неотрицательное число, удовлетворяющее
  []
 
 
-Overfull \hbox (59.23645pt too wide) in paragraph at lines 967--968
+Overfull \hbox (59.23645pt too wide) in paragraph at lines 973--974
 []\T2A/cmr/m/it/12 Число, выражающееся в виде линейной комбинации чисел $\OML/c
 mm/m/it/12 a[]; [] ; a[]$ \T2A/cmr/m/it/12 с целыми неотрицательными
  []
 
 [19]
-Overfull \hbox (13.76195pt too wide) in paragraph at lines 992--993
+Overfull \hbox (13.76195pt too wide) in paragraph at lines 998--999
 [][]\T2A/cmr/bx/n/12 Следствие 10.6 \T2A/cmr/m/n/12 (Корректность функции $\OML
 /cmm/m/it/12 P$\T2A/cmr/m/n/12 )\T2A/cmr/bx/n/12 . []\T2A/cmr/m/it/12 Функция $
 \OML/cmm/m/it/12 P$ \T2A/cmr/m/it/12 определена корректно: еј значение
  []
 
 [20]
-Overfull \hbox (2.19308pt too wide) in paragraph at lines 1063--1064
+Overfull \hbox (2.19308pt too wide) in paragraph at lines 1069--1070
 []\T2A/cmr/m/n/12 Разберјм второй случай: $\OML/cmm/m/it/12 a$ \T2A/cmr/m/n/12 
 нечјтно. Неравенство $\OML/cmm/m/it/12 P\OT1/cmr/m/n/12 (2\OML/cmm/m/it/12 ; a;
  b\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 ^^T \OML/cmm/m/it/12 P\OT1/cmr/m/n/12 (2\O
@@ -1277,14 +1272,14 @@ ML/cmm/m/it/12 ; a\OT1/cmr/m/n/12 )$ \T2A/cmr/m/n/12 следует из свойства
 [21]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1124.
+(hyperref)                removing `math shift' on input line 1130.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1124.
+(hyperref)                removing `math shift' on input line 1130.
 
 [22]
-Overfull \hbox (3.53946pt too wide) in paragraph at lines 1153--1154
+Overfull \hbox (3.53946pt too wide) in paragraph at lines 1160--1161
 []\T2A/cmr/m/it/12 Проверим каждое значение $\OML/cmm/m/it/12 p$ \T2A/cmr/m/it/
 12 от $\OT1/cmr/m/n/12 1$ \T2A/cmr/m/it/12 до $\OML/cmm/m/it/12 ANS \OT1/cmr/m/
 n/12 + \OML/cmm/m/it/12 a[]$ \T2A/cmr/m/it/12 на выразимость. Для этого перебер
@@ -1293,37 +1288,34 @@ n/12 + \OML/cmm/m/it/12 a[]$ \T2A/cmr/m/it/12 на выразимость. Для этого перебер
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1167.
+(hyperref)                removing `math shift' on input line 1174.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1167.
+(hyperref)                removing `math shift' on input line 1174.
 
 
-Overfull \hbox (26.08067pt too wide) in paragraph at lines 1174--1175
+Overfull \hbox (6.50517pt too wide) in paragraph at lines 1179--1180
+[][]\T2A/cmr/bx/n/12 Утверждение 10.18. []\T2A/cmr/m/it/12 Функция $\OML/cmm/m/
+it/12 P\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 a[]; [] ; a[]\OT1/cmr/m/n/12 )$ \T2A/c
+mr/m/it/12 оценивается сверху следующими функциями: 
+ []
+
+
+Overfull \hbox (26.08067pt too wide) in paragraph at lines 1188--1189
 []\T2A/cmr/m/n/12 По замечанию []10.3[] граница $\OML/cmm/m/it/12 T$ \T2A/cmr/m
 /n/12 данной ромашки совпадает с еј экспонентой,
  []
 
 
-Overfull \hbox (7.29369pt too wide) in paragraph at lines 1174--1175
-\T2A/cmr/m/n/12 которая по теореме []4.7[] оценивается сверху числом Виландта о
-т количества вершин $\OML/cmm/m/it/12 Wi\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 N\OT1
-/cmr/m/n/12 ) =
+Overfull \hbox (3.95825pt too wide) in paragraph at lines 1188--1189
+\T2A/cmr/m/n/12 которая по теореме []8.11[] оценивается сверху числом Виландта 
+от количества вершин $\OML/cmm/m/it/12 Wi\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 N\OT
+1/cmr/m/n/12 )$\T2A/cmr/m/n/12 ,
  []
 
 
-Overfull \hbox (10.9057pt too wide) in paragraph at lines 1176--1177
-[]\T2A/cmr/m/n/12 Значит, по теореме []10.5[], $\OML/cmm/m/it/12 P\OT1/cmr/m/n/
-12 (\OML/cmm/m/it/12 a[]; [] ; a[]\OT1/cmr/m/n/12 ) + 2\OML/cmm/m/it/12 a[] \OM
-S/cmsy/m/n/12 ^^@ \OT1/cmr/m/n/12 2 = \OML/cmm/m/it/12 T\OT1/cmr/m/n/12 (\OML/c
-mm/m/it/12 a[]; [] ; a[]\OT1/cmr/m/n/12 ; 1) \OMS/cmsy/m/n/12 ^^T \OML/cmm/m/it
-/12 Wi\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 N\OT1/cmr/m/n/12 )$\T2A/cmr/m/n/12 . Сл
-едовательно,
- []
-
-
-Overfull \hbox (26.04466pt too wide) in paragraph at lines 1183--1184
+Overfull \hbox (26.04466pt too wide) in paragraph at lines 1199--1200
 []\T2A/cmr/m/n/12 При подстановке $\OML/cmm/m/it/12 Wi\OT1/cmr/m/n/12 (\OML/cmm
 /m/it/12 N\OT1/cmr/m/n/12 ) + 2\OML/cmm/m/it/12 a[] \OMS/cmsy/m/n/12 ^^@ \OT1/c
 mr/m/n/12 2$ \T2A/cmr/m/n/12 вместо функции $\OML/cmm/m/it/12 ANS$ \T2A/cmr/m/n
@@ -1331,12 +1323,6 @@ mr/m/n/12 2$ \T2A/cmr/m/n/12 вместо функции $\OML/cmm/m/it/12 ANS$ \T2A/cmr/m/n
  []
 
 [23]
-Overfull \hbox (13.82321pt too wide) in paragraph at lines 1198--1199
-[]\T2A/cmr/m/n/12 Заметим, что числа $\OML/cmm/m/it/12 a[]$ \T2A/cmr/m/n/12 и $
-\OML/cmm/m/it/12 a[] \OT1/cmr/m/n/12 + [] + \OML/cmm/m/it/12 a[]$ \T2A/cmr/m/n/
-12 взаимно просты. Далее утверждение
- []
-
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 1208.
@@ -1363,7 +1349,7 @@ Overfull \hbox (22.94853pt too wide) in paragraph at lines 1304--1305
  []
 
 Excluding 'comment' comment. [25]
-Overfull \hbox (33.54948pt too wide) in paragraph at lines 1358--1359
+Overfull \hbox (33.54948pt too wide) in paragraph at lines 1362--1363
 []$\OMS/cmsy/m/n/12 W\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 i [] j\OT1/cmr/m/n/12 )$
 \T2A/cmr/m/n/12 , $\OMS/cmsy/m/n/12 W[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 i [] j
 \OT1/cmr/m/n/12 )$\T2A/cmr/m/n/12 , $\OMS/cmsy/m/n/12 W[]\OT1/cmr/m/n/12 (\OML/
@@ -1372,7 +1358,7 @@ cmm/m/it/12 i [] j\OT1/cmr/m/n/12 )$ \T2A/cmr/m/n/12 --- аналогично предыдущему
  []
 
 
-Underfull \hbox (badness 3679) in paragraph at lines 1390--1393
+Underfull \hbox (badness 3679) in paragraph at lines 1394--1397
 []\T2A/cmr/m/n/12 Ю.А. Альпин, И.В. Башкин. \T2A/cmr/m/it/12 Неотрицательные це
 пные матрицы \T2A/cmr/m/n/12 Казанский
  []
@@ -1382,10 +1368,10 @@ Package rerunfilecheck Info: File `Course.out' has not changed.
 (rerunfilecheck)             Checksum: 68CEE964A2793B3F11008544427A1678;6150.
  ) 
 Here is how much of TeX's memory you used:
- 23283 strings out of 477678
- 424298 string characters out of 5832469
- 727840 words of memory out of 5000000
- 41456 multiletter control sequences out of 15000+600000
+ 23287 strings out of 477678
+ 424322 string characters out of 5832469
+ 727943 words of memory out of 5000000
+ 41457 multiletter control sequences out of 15000+600000
  493243 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  100i,18n,104p,1315b,599s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1412,10 +1398,10 @@ nts/type1/public/cm-super/sfbx1440.pfb></opt/texlive/2022/texmf-dist/fonts/type
 /cm-super/sfrm1200.pfb></opt/texlive/2022/texmf-dist/fonts/type1/public/cm-supe
 r/sfrm1440.pfb></opt/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm20
 74.pfb></opt/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on Course.pdf (27 pages, 538068 bytes).
+Output written on Course.pdf (27 pages, 537946 bytes).
 PDF statistics:
- 609 PDF objects out of 1000 (max. 8388607)
- 531 compressed objects within 6 object streams
- 211 named destinations out of 1000 (max. 500000)
+ 610 PDF objects out of 1000 (max. 8388607)
+ 532 compressed objects within 6 object streams
+ 214 named destinations out of 1000 (max. 500000)
  257 words of extra memory for PDF output out of 10000 (max. 10000000)
 
