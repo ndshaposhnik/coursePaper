@@ -1,0 +1,905 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+%\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian, english]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{tikz}
+
+\everymath{\color{blue}}
+
+\newtheorem*{Th}{Теорема}
+\newtheorem*{Def}{Определение}
+\newtheorem*{Prop}{Утверждение}
+\newtheorem*{Rem}{Замечание}
+\newtheorem*{Exmpl}{Пример}
+
+\newcommand{\cred}[1]{\textcolor{red}{#1}}
+\newcommand{\cblue}[1]{\textcolor{blue}{#1}}
+\newcommand{\cwhite}[1]{\textcolor{white}{#1}}
+\newcommand{\cblack}[1]{\textcolor{black}{#1}}
+
+
+\title[Short title]{Степени тропических матриц и графы} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Никита Шапошник, МФТИ\\научный руководитель -- А.Э. Гутерман} 
+
+\date{29 ноября 2021} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section{Введение}
+
+\begin{frame}
+\frametitle{Тропическое полукольцо}
+$\mathbb{R}_{\max} = \mathbb{R} \cup \{ -\infty\}$ с операциями сложения $\oplus$ и умножения $\odot$: \begin{align*}
+            a \oplus b &= \max(a, b)\\
+            a \odot b &= a + b
+        \end{align*}
+$\mathbb{R}_{\max}$ также называется max-plus алгеброй.\\
+
+$\mathbb{R}_{min} = \mathbb{R} \cup \{ \infty\}$ с операциями сложения $\oplus$ и умножения $\odot$: \begin{align*}
+            a \oplus b &= min(a, b)\\
+            a \odot b &= a + b
+        \end{align*}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Свойства тропического полукольца} 
+Для любых $a, b, c \in \mathbb{R}_{\max}$ верно:
+\begin{itemize}
+\item Сложение и умножение ассоциативны.
+\item Сложение и умножение коммутативны.
+\item Дистрибутивность: $a \odot (b \oplus c) = a \odot b \oplus a \odot c$.
+\item $-\infty$ --- нулевой элемент: $a \oplus -\infty = a$.
+\item $0$ --- единичный элемент: $a \odot 0= a$.
+\item Результат умножения на тропический ноль --- тропический ноль: $a \odot -\infty = -\infty$.
+\item Несуществование обратного по сложению: если $a \neq -\infty$, то $a \oplus b \ge a > -\infty$.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Определения теории графов} 
+\begin{enumerate}
+	\item \cred{Ориентированный граф} $\mathcal{G} = {\mathcal{G}(V,E)}$. Петли разрешены, кратные рёбра -- нет.
+	\item $\mathcal{W}^t(i \rightarrow j)$ --- множество всех путей из вершины $i$ в вершину $j$ длины $t$;\\
+	\cred{Длина пути} --- это количетсво ребер в нём; \\
+	$\mathcal{W}(i \rightarrow j)$ --- множество всех путей из вершины $i$ в вершину $j$. Вершины и ребра в обоих случаях могут повторяться.
+	\item Граф $\mathcal{G}(V, E)$ со введенной функцией $p : E \rightarrow \mathbb{R}$ называется \cred{взвешенным} графом.\\
+	\cred{Весом пути} $W = e_1e_2\dots e_k$ называется число 
+
+	\begin{equation*}
+		p(W) = \bigodot_{i = 1}^k p(e_i).
+	\end{equation*}
+\end{enumerate}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Связь матриц и графов}
+$A \in M_d(\mathbb{R}_{max}) \longleftrightarrow \mathcal{G} = {\mathcal{G}(V,E)}$, если
+\begin{enumerate}
+	\item $|V| = d$;
+	\item $a_{ij} \neq -\infty \Leftrightarrow (i, j) \in E$ и $a_{ij} = p((i, j))$;
+	\item $a_{ij} = -\infty \Leftrightarrow (i, j) \notin E$.
+\end{enumerate}
+Такая матрица $A$ называется \cred{матрицей смежности} графа $\mathcal{G}$. Граф, построенный по матрице $A$, обозначим через $\mathcal{G}(A)$.
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Степени тропических матриц и графы}
+\begin{Prop}
+Рассмотрим $A \in M_{d \times d}(\mathbb{R}_{\max})$, $i, j \in V(\mathcal{G}(A))$, $t \in \mathbb{N} \cup \{0\}$. Тогда:\begin{equation*}
+    a_{ij}^t = \bigoplus \{p(W): W \in \mathcal{W}^t(i \rightarrow j)\}
+\end{equation*}
+\end{Prop}
+\begin{proof}[\textbf{Доказательство}]
+База: $t = 0$: $A^0 = I = diag(0, 0, ..., 0) = \begin{pmatrix}
+0 & -\infty & ... & -\infty \\
+-\infty & 0 &... & -\infty \\
+...     & ... & ... & ... \\
+-\infty & -\infty & ...  & 0
+\end{pmatrix}$.\\
+Переход:
+\begin{equation*}
+    a_{ij}^{t + 1} = \bigoplus_{k = 1}^{d} a_{ik}^t \odot a_{kj} = \max_k (a_{ik}^t + a_{kj})
+\end{equation*}
+\end{proof}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Максимальный средний вес цикла}
+\begin{Def}
+\cred{Максимальный средний вес цикла} в $\mathcal{G}$:
+\begin{equation*}
+    \begin{split}
+        \lambda(A) = \bigoplus_{k = 1}^d \bigoplus_{i_1, \dots, i_k} (a_{{i_1}{i_2}}\odot \dots \odot a_{{i_k}{i_1}})^{\odot{1/k}} =\\
+        =\max_{k = 1}^d \max_{i_1, \dots, i_k} \frac{(a_{{i_1}{i_2}} + \dots + a_{{i_k}{i_1}})}{k}
+    \end{split}
+\end{equation*}
+\end{Def}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Звезда Клини}
+\begin{Def}
+Для $A \in M_{d \times d}(\mathbb{R}_{\max})$ с $\lambda(A) \le 0$ определим звезду Клини:
+\begin{equation*}
+	A^* = \bigoplus_{i = 0}^{\infty} A^i
+\end{equation*}
+\end{Def}
+\begin{Prop}
+\begin{equation*}
+	A^* = \bigoplus_{i = 0}^{d - 1} A^i
+\end{equation*}
+\begin{equation*}
+	(A^*)_{ij} = p(\mathcal{W}(i \rightarrow j))
+\end{equation*}
+\end{Prop}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Критические циклы и критический подграф}
+\begin{Def}
+	Ориентированный цикл называется \cred{критическим}, если у него максимальный средний вес.
+\end{Def}
+
+\begin{Def}
+	Объединение всех критических циклов называется \cred{критическим подграфом}.
+\end{Def}
+
+ 
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Примитивные матрицы} 
+\begin{Def}
+\begin{itemize}
+	\item Матрица $A \in M_{n\times n}(\mathbb{R}), A \ge 0$ называется \cred{примитивной}, если $\exists k \in \mathbb{N}: A^k > 0$.
+	\item Матрица $A \in M_{n\times n}(\mathbb{R}_{\max})$ называется 				\cred{примитивной}, если $\exists k \in \mathbb{N}: A^k$ не содержит $-\infty$.
+	\item Наименьшее такое $k$ называется \cred{экспонентой} $A$ и обозначается через $exp(A)$.
+\end{itemize}
+\end{Def}
+
+\begin{Th}[Виландта]
+	Экспонента примитивной матрицы порядка $n$ не превосходит $Wi(n) = n^2 -2n + 2$.
+\end{Th}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Примитивность на языке графов} 
+Матрица $A$ примитивна тогда и только тогда, когда существует такое $k \in \mathbb{N}$, что в $\mathcal{G}(A)$ для любых вершин $u$ и $v$ есть путь из $u$ в $v$ длины $k$.
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Сильная связность и неразложимость}
+	\begin{Def}
+		Граф $\mathcal{G}$ зовётся \cred{сильно связным}, если для любых $u, v \in V(\mathcal{G})$ есть путь из $u$ в $v$.
+	\end{Def}
+	
+	\begin{Def}
+Матрица $A \in M_d(\mathbb{R_{\max}})$ (или соответствующий ей граф) \cred{неразложима}, если граф $\mathcal{G}(A)$ сильно связен, иначе \cred{разложима}.\\
+Матрица $A \in M_d(\mathbb{R_{\max}})$ (или соответствующий ей граф) \cred{полностью разложима}, если в графе $\mathcal{G}(A)$ нет рёбер между различными компонентами сильной связности.\\
+	\end{Def}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Индекс цикличности}
+\begin{Def}
+	\cred{Индекс цикличности} $\sigma_{\mathcal{G}}$ графа $\mathcal{G}$ равен:
+	\begin{itemize}
+		\item 1, если в $\mathcal{G}$ есть только одна вершина (с петлей или без). 
+		\item НОД всех длин ориентированных циклов в $\mathcal{G}$, если $\mathcal{G}$ сильно связен, и $|V(\mathcal{G})| \ge 2$.
+		\item НОК цикличностей всех максимальных его сильно связных подграфов,если $\mathcal{G}$ не сильно связен.
+	\end{itemize}
+\end{Def}
+\begin{Th}
+Неразложимая матрица примитивна тогда и только тогда, когда ее индекс цикличности равен $1$.
+\end{Th}
+\end{frame}
+
+%------------------------------------------------
+%\begin{frame}
+%\frametitle{Скрамблинг индекс}
+%\begin{Def}
+%	\cred{Скрамблинг индекс} $k(\mathcal{G})$ ориентированного графа $\mathcal{G}$ --- это наименьшее $k \in \mathbb{N} :$ $\forall u, v \in V(\mathcal{G}) \hookrightarrow \exists w \in V(\mathcal{G})$ такая, что есть путь длины $k$ из $u$ в $w$ и из $v$ в $w$. Если не существует таких $k$, то $k(\mathcal{G}) = 0$.
+%\end{Def}
+%\begin{Rem}
+%Если $\mathcal{G}$ --- примитивный ориентированный граф, то
+%\begin{equation*}
+%	0 < k(\mathcal{G}) \le exp(\mathcal{G}).
+%\end{equation*}	
+%\end{Rem}
+
+%\end{frame}
+
+%------------------------------------------------
+
+\section{CSR-декомпозиция}
+\begin{frame}
+\frametitle{Матрицы CSR}
+Пусть $A \in M_d(\mathbb{R}_{\max})$, $\mathcal{D}$ --- подграф $\mathcal{G}^c(A)$ без тривиальных компонент сильной связности. 
+\\Введем обозначение: $M = ((\lambda(A)^-\odot A)^\sigma)^*$, где \\
+\begin{itemize}
+\item $\lambda(A)$ --- максимальный средний вес цикла в $\mathcal{G}(A)$.\\
+\item $\lambda(A)^- = -\lambda(A)$ --- обратный к $\lambda(A)$ по умножению элемент;\\
+\item $\sigma$ --- цикличность критического подграфа $\mathcal{G}^c(A)$.\\
+\item $A^* = \bigoplus_{i = 0}^{\infty} A^i$ --- звезда Клини матрицы $A$.
+\end{itemize}
+
+Определим матрицы $C, S, R \in M_r(\mathbb{R}_{\max})$:
+\begin{align*}
+    c_{ij} &= \begin{cases}
+        m_{ij}\text{, если } j \in V(\mathcal{D})\\
+        -\infty \text{, иначе,}
+    \end{cases}
+    &
+    r_{ij} = \begin{cases}
+        m_{ij}\text{, если } i \in V(\mathcal{D})\\
+        -\infty \text{, иначе,}
+    \end{cases}
+    \\
+    s_{ij} &= \begin{cases}
+        \lambda(A)^- \odot a_{ij}\text{, если } (i, j) \in E(\mathcal{D})\\
+        -\infty \text{, иначе.}
+    \end{cases}
+\end{align*}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Пример}
+
+Рассмотрим следующий граф $\mathcal{G}(A)$:
+
+\begin{center}
+\begin{tikzpicture}[scale=0.12]
+\tikzstyle{every node}+=[inner sep=0pt]
+\draw [black] (39,-7.2) circle (3);
+\draw (39,-7.2) node {$1$};
+\draw [black] (61.4,-17.8) circle (3);
+\draw (61.4,-17.8) node {$2$};
+\draw [black] (56.8,-46.8) circle (3);
+\draw (56.8,-46.8) node {$3$};
+\draw [black] (22.1,-46.8) circle (3);
+\draw (22.1,-46.8) node {$4$};
+\draw [black] (16.7,-19.2) circle (3);
+\draw (16.7,-19.2) node {$5$};
+\draw [black] (37.677,-4.52) arc (234:-54:2.25);
+\draw (39,0.05) node [above] {$0$};
+\fill [black] (40.32,-4.52) -- (41.2,-4.17) -- (40.39,-3.58);
+\draw [black] (63.48,-15.655) arc (163.61718:-124.38282:2.25);
+\draw (68.52,-14.77) node [right] {$0$};
+\fill [black] (64.37,-18.15) -- (64.99,-18.85) -- (65.28,-17.89);
+\draw [black] (59.48,-45.477) arc (144:-144:2.25);
+\draw (64.05,-46.8) node [right] {$-1$};
+\fill [black] (59.48,-48.12) -- (59.83,-49) -- (60.42,-48.19);
+\draw [black] (53.8,-46.8) -- (25.1,-46.8);
+\fill [black] (25.1,-46.8) -- (25.9,-47.3) -- (25.9,-46.3);
+\draw (39.45,-46.3) node [above] {$-3$};
+\draw [black] (23.28,-44.04) -- (37.82,-9.96);
+\fill [black] (37.82,-9.96) -- (37.05,-10.5) -- (37.97,-10.89);
+\draw (31.28,-27.95) node [right] {$-3$};
+\draw [black] (19.577,-48.402) arc (-29.85515:-317.85515:2.25);
+\draw (14.74,-47.62) node [left] {$-2$};
+\fill [black] (19.29,-45.77) -- (18.85,-44.94) -- (18.35,-45.81);
+\draw [black] (13.716,-19.355) arc (300.69698:12.69698:2.25);
+\draw (9.77,-15.57) node [left] {$-3$};
+\fill [black] (14.76,-16.93) -- (14.78,-15.98) -- (13.92,-16.49);
+\draw [black] (19.34,-17.78) -- (36.36,-8.62);
+\fill [black] (36.36,-8.62) -- (35.42,-8.56) -- (35.89,-9.44);
+\draw [black] (36.36,-8.62) -- (19.34,-17.78);
+\fill [black] (19.34,-17.78) -- (20.28,-17.84) -- (19.81,-16.96);
+\draw (26.51,-12.7) node [above] {$-7$};
+\draw [black] (41.71,-8.48) -- (58.69,-16.52);
+\fill [black] (58.69,-16.52) -- (58.18,-15.72) -- (57.75,-16.63);
+\draw [black] (58.69,-16.52) -- (41.71,-8.48);
+\fill [black] (41.71,-8.48) -- (42.22,-9.28) -- (42.65,-8.37);
+\draw (51.19,-11.99) node [above] {$0$};
+\draw [black] (57.27,-43.84) -- (60.93,-20.76);
+\fill [black] (60.93,-20.76) -- (60.31,-21.47) -- (61.3,-21.63);
+\draw [black] (60.93,-20.76) -- (57.27,-43.84);
+\fill [black] (57.27,-43.84) -- (57.89,-43.13) -- (56.9,-42.97);
+\draw (58.4,-32.09) node [left] {$-1$};
+\draw [black] (58.49,-18.529) arc (-76.8156:-99.59658:98.38);
+\fill [black] (58.49,-18.53) -- (57.6,-18.22) -- (57.83,-19.2);
+\draw [black] (58.489,-18.525) arc (-76.88805:-99.52412:98.997);
+\fill [black] (19.65,-19.74) -- (20.36,-20.37) -- (20.52,-19.38);
+\draw (39.16,-21.6) node [below] {$-7$};
+\draw [black] (55.57,-44.06) -- (40.23,-9.94);
+\fill [black] (40.23,-9.94) -- (40.1,-10.87) -- (41.01,-10.46);
+\draw [black] (40.23,-9.94) -- (55.57,-44.06);
+\fill [black] (55.57,-44.06) -- (55.7,-43.13) -- (54.79,-43.54);
+\draw (47.18,-28) node [left] {$-1$};
+\draw [black] (53.981,-45.773) arc (-110.95184:-138.12582:91.248);
+\fill [black] (53.98,-45.77) -- (53.41,-45.02) -- (53.06,-45.95);
+\draw [black] (53.982,-45.771) arc (-111.00042:-138.07725:91.567);
+\fill [black] (18.67,-21.46) -- (18.83,-22.39) -- (19.57,-21.73);
+\draw (33.53,-36.21) node [below] {$-7$};
+\draw [black] (17.28,-22.14) -- (21.52,-43.86);
+\fill [black] (21.52,-43.86) -- (21.86,-42.97) -- (20.88,-43.17);
+\draw [black] (21.52,-43.86) -- (17.28,-22.14);
+\fill [black] (17.28,-22.14) -- (16.94,-23.03) -- (17.92,-22.83);
+\draw (20.13,-32.7) node [right] {$-7$};
+\end{tikzpicture}
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Пример}
+Ему соответствует матрица $A \in M_5(\mathbb{R}_{\max})$:
+\begin{equation*}
+A = \begin{pmatrix}
+0 & 0 & -1 & -\infty & -7 \\
+0 & 0 & -1 & -\infty & -7 \\
+-1 & -1 & -1 & -3 & -7 \\
+-3 & -\infty & -\infty & -2 & -7 \\
+-7 & -7 & -7 & -7 & -3 \\
+\end{pmatrix}
+\end{equation*}
+$\lambda(A) = 0$.
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Пример}
+Критический подграф: его цикличность равна: $\sigma = 1$.\\
+Возьмем $\mathcal{D} = \mathcal{G}^c(A)$.
+\begin{center}
+\begin{tikzpicture}[scale=0.12]
+\tikzstyle{every node}+=[inner sep=0pt]
+\draw [black] (39.3,-18.4) circle (3);
+\draw (39.3,-18.4) node {$1$};
+\draw [black] (60.5,-30.2) circle (3);
+\draw (60.5,-30.2) node {$2$};
+\draw [black] (54.6,-55) circle (3);
+\draw (54.6,-55) node {$3$};
+\draw [black] (24.4,-55) circle (3);
+\draw (24.4,-55) node {$4$};
+\draw [black] (18.6,-30.8) circle (3);
+\draw (18.6,-30.8) node {$5$};
+\draw [black] (41.92,-19.86) -- (57.88,-28.74);
+\fill [black] (57.88,-28.74) -- (57.42,-27.92) -- (56.94,-28.79);
+\draw [black] (57.88,-28.74) -- (41.92,-19.86);
+\fill [black] (41.92,-19.86) -- (42.38,-20.68) -- (42.86,-19.81);
+\draw (50.9,-23.8) node [above] {$0$};
+\draw [black] (37.977,-15.72) arc (234:-54:2.25);
+\draw (39.3,-11.15) node [above] {$0$};
+\fill [black] (40.62,-15.72) -- (41.5,-15.37) -- (40.69,-14.78);
+\draw [black] (61.557,-27.405) arc (187.02507:-100.97493:2.25);
+\draw (65.97,-24.13) node [right] {$0$};
+\fill [black] (63.36,-29.34) -- (64.22,-29.74) -- (64.09,-28.74);
+\end{tikzpicture}
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Пример}
+\begin{equation*}
+M = ((\lambda(A)^-\odot A^\sigma)^* = A^* = \begin{pmatrix}
+   0 &   0 &  -1 &  -4 &  -7 \\
+   0 &   0 &  -1 &  -4 &  -7 \\
+  -1 &  -1 &   0 &  -3 &  -7 \\
+  -3 &  -3 &  -4 &   0 &  -7 \\
+  -7 &  -7 &  -7 &  -7 &   0
+\end{pmatrix}
+\end{equation*}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Пример}
+\begin{align*}
+   	C &= \begin{pmatrix}
+    		 0 &   0 & -\infty & -\infty & -\infty \\
+  		 0 &   0 & -\infty & -\infty & -\infty \\
+  		-1 &  -1 & -\infty & -\infty & -\infty \\
+  		-3 &  -3 & -\infty & -\infty & -\infty \\
+  		-7 &  -7 & -\infty & -\infty & -\infty
+    \end{pmatrix}
+    \\
+    R &= \begin{pmatrix}
+   0 &   0 &  -1 &  -4 &  -7 \\
+   0 &   0 &  -1 &  -4 &  -7 \\
+  -\infty &  -\infty & -\infty & -\infty & -\infty \\
+  -\infty &  -\infty & -\infty & -\infty & -\infty \\
+  -\infty &  -\infty & -\infty & -\infty & -\infty
+\end{pmatrix}
+\end{align*}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Пример}
+\begin{align*}
+   S = \begin{pmatrix}
+   0 &   0 & -\infty & -\infty & -\infty \\
+   0 &   0 & -\infty & -\infty & -\infty \\
+  -\infty &  -\infty & -\infty & -\infty & -\infty \\
+  -\infty &  -\infty & -\infty & -\infty & -\infty \\
+  -\infty & -\infty & -\infty & -\infty & -\infty
+\end{pmatrix}
+\end{align*}
+\begin{Rem}
+	В дальнейшем матрицы $C, S, R$, определённые через матрицу $A$, будем обозначать через $CSR[A]$.
+\end{Rem}
+\end{frame}
+
+%------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Граница $\cwhite{T}$}
+\begin{Th} [Sergeev, 2009]
+Пусть $A \in M_d(\mathbb{R}_{\max})$ неразложима и CSR-матрицы определены через некоторый подграф $\mathcal{D}$ графа $\mathcal{G}^c(A)$. Тогда $\exists T(A) \hookrightarrow \forall t \ge T(A):$
+\begin{equation*}
+    A^t = \lambda(A)^{\odot t} \odot CS^tR[A].
+\end{equation*}
+\end{Th}
+\begin{Rem}
+	Если $\lambda(A) = 0$, то $\forall t \ge T(A):$
+	\begin{equation*}
+    A^t = CS^tR[A].
+\end{equation*}
+\end{Rem}
+\end{frame}
+
+%------------------------------------------------
+%\subsection{Границы $\cwhite{T_1}$ и $\cwhite{T_2}$}
+\begin{frame}
+\frametitle{Вспомогательная матрица $\cwhite{B}$}
+Введем новую матрицу $B \in M_d(\mathbb{R}_{\max})$:
+
+\[
+\cblue{b_{ij}} = \begin{cases}
+		-\infty \cblack{\text{, если $i$ или $j$ лежат в } \mathcal{D},} \\
+   		a_{ij}, \cblack{\text{ иначе.}}
+\end{cases}
+\]
+\begin{equation*}
+B = \begin{pmatrix}
+-\infty & -\infty & -\infty & -\infty & -\infty \\
+-\infty & -\infty & -\infty & -\infty & -\infty \\
+-\infty & -\infty & -1 & -3 & -7 \\
+-\infty & -\infty & -\infty & -2 & -7 \\
+-\infty & -\infty & -7 & -7 & -3 \\
+\end{pmatrix}
+\end{equation*}
+Эта матрица нужна нам для определения следующих границ.
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Границы $\cwhite{T_1}$ и $\cwhite{T_2}$}
+\begin{Th}[Merlet, Nowak, Sergeev, 2014]
+Пусть $A \in M_d(\mathbb{R}_{\max})$ неразложима. Тогда \\$\exists T_1(A, B) \hookrightarrow \forall t \ge T_1(A, B):$
+\begin{equation*}
+    A^t = (\lambda(A)^{\odot t} \odot CS^tR[A]) \oplus B^t.
+\end{equation*}
+$\exists T_2(A, B) \hookrightarrow \forall t \ge T_2(A, B):$
+\begin{equation*}
+    \lambda(A)^{\odot t} \odot CS^tR[A] \ge B^t.
+\end{equation*}
+
+\end{Th}
+Если $\lambda(A) = 0$, то равенства из определения $T_1$ и $T_2$ записываются в виде:
+\begin{gather*}
+A^t = CS^tR[A] \oplus B^t \\
+	  CS^tR[A] \ge B^t
+\end{gather*}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Как относятся между собой разные границы}
+\begin{Prop}
+$T(A) \le \max(T_1(A, B), T_2(A, B))$.
+\end{Prop}
+\begin{proof}[\textbf{Доказательство}]
+Возьмем $t \ge \max(T_1(A, B), T_2(A, B))$. Тогда:
+\begin{gather*}
+A^t = (\lambda(A)^{\odot t} \odot CS^tR[A]) \oplus B^t \\
+\lambda(A)^{\odot t} \odot CS^tR[A] \ge B^t
+\end{gather*}
+и,значит,
+\begin{equation*}
+A^t = \lambda(A)^{\odot t} \odot CS^tR[A]
+\end{equation*}
+\end{proof}
+\begin{Exmpl}
+Для матрицы $A$ граница $T(A) = 5$, $T_1(A, B) = 2$, а $T_2(A, B) = 5$
+\end{Exmpl}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Как выбрать подграф $\cwhite{\mathcal{D}}$?}
+$\mathcal{D} = \mathcal{G}^c(A)$ --- способ Нахтигалля.
+\begin{block}{Обозначения}
+Обозначим через $B_N$ матрицу $B$, выбранную способом Нахтигалля.\\
+Будем писать $T_{1, N}(A)$ вместо $T_1(A, B_N)$ и $T_{2, N}(A)$ вместо $T_2(A, B_N)$.
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Инвариантность относительно умножения на скаляр}
+\begin{Prop}[Kennedy-Cochran-Patrick, Merlet, Nowak, Sergeev]
+Если $A' = \mu \odot A$, где $\mu \in \mathbb{R}$, то 
+
+\begin{itemize}
+	\item $\lambda(A') = \mu \odot \lambda(A)$
+	\item $B_N[A'] = B_N[A]$
+	\item $CSR[A'] = CSR[A]$
+\end{itemize}
+
+Значит, $T_1(A, B), T_2(A, B)$ инвариантны относительно умножении матрицы на скаляр, что позволяет нам без разграничения общности говорить, что $\lambda(A) = 0$.
+
+\end{Prop}
+\end{frame}
+
+%------------------------------------------------
+%\begin{frame}
+%\frametitle{Новые обозначения}
+%Введем несколько новых обозначений:
+%\begin{enumerate}
+%    \item Через $\mathcal{W}^{t, l}(i \rightarrow j)$ обозначим множество путей от вершины $i$ к вершине $j$, имеющих длину $t$ по модулю $l$;
+%    \item Через $\mathcal{W}(i \xrightarrow{\mathcal{G}} j)$ обозначим множество путей от вершины $i$ к вершине $j$, проходящих хотя бы через одну вершину из $\mathcal{G}$. Аналогично определяются $\mathcal{W}^t(i \xrightarrow{\mathcal{G}} j)$, $\mathcal{W}^{t, l}(i \xrightarrow{\mathcal{G}} j)$.
+%    \item Для множества $\mathcal{W}$ через $p(\mathcal{W})$ обозначим максимальный вес пути из множества $\mathcal{W}$.
+%\end{enumerate}
+%\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Смысл матриц $\cwhite{CSR}$}
+\begin{Prop}[Kennedy-Cochran-Patrick, Merlet, Nowak, Sergeev]
+Если $\lambda(A) = 0$, то верно следующее тождество:
+\begin{equation}
+    (CS^tR[A])_{ij} = p(\mathcal{W}^{t, \sigma}(i \xrightarrow{\mathcal{G}^c(A)} j)),
+\end{equation}
+где $\sigma$ обозначает цикличность $\mathcal{G}^c(A)$, $p(\mathcal{W})$ --- максимальный вес пути из множества $\mathcal{W}$,
+\end{Prop}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Некоторые оценки для $\cwhite{T_{1, N}(A)}$}
+\begin{Th}[Kennedy-Cochran-Patrick, Merlet, Nowak, Sergeev]
+Для любой $A \in M_n(\mathbb{R}_{\max})$ имеем:
+\begin{enumerate} 
+    \item $T_{1, N}(A) \le n^2 - 2n + 2$;
+    \item $T_{1, N}(A) \le \hat{g}(n - 2) + n$, где $\hat{g} = \hat{g}(\mathcal{G}^c(A))$ --- обхват критического подграфа, то есть наименьшая длина цикла.
+\end{enumerate}
+\end{Th}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Границы T для цикла}
+\begin{center}
+\begin{tikzpicture}[scale=0.11]
+\tikzstyle{every node}+=[inner sep=0pt]
+\draw [black] (10.6,-14.6) circle (3);
+\draw (10.6,-14.6) node {$9$};
+\draw [black] (55.8,-15.5) circle (3);
+\draw (55.8,-15.5) node {$2$};
+\draw [black] (42.9,-4.5) circle (3);
+\draw (42.9,-4.5) node {$1$};
+\draw [black] (60.4,-30.3) circle (3);
+\draw (60.4,-30.3) node {$3$};
+\draw [black] (54.6,-46.4) circle (3);
+\draw (54.6,-46.4) node {$4$};
+\draw [black] (42.1,-56.5) circle (3);
+\draw (42.1,-56.5) node {$5$};
+\draw [black] (23.2,-56.5) circle (3);
+\draw (23.2,-56.5) node {$6$};
+\draw [black] (11.2,-47.6) circle (3);
+\draw (11.2,-47.6) node {$7$};
+\draw [black] (4.1,-32.2) circle (3);
+\draw (4.1,-32.2) node {$8$};
+\draw [black] (24.7,-4.5) circle (3);
+\draw (24.7,-4.5) node {$10$};
+\draw [black] (45.18,-6.45) -- (53.52,-13.55);
+\fill [black] (53.52,-13.55) -- (53.23,-12.65) -- (52.58,-13.41);
+\draw [black] (56.69,-18.36) -- (59.51,-27.44);
+\fill [black] (59.51,-27.44) -- (59.75,-26.52) -- (58.79,-26.82);
+\draw [black] (59.38,-33.12) -- (55.62,-43.58);
+\fill [black] (55.62,-43.58) -- (56.36,-42.99) -- (55.42,-42.66);
+\draw [black] (52.27,-48.29) -- (44.43,-54.61);
+\fill [black] (44.43,-54.61) -- (45.37,-54.5) -- (44.74,-53.72);
+\draw [black] (39.1,-56.5) -- (26.2,-56.5);
+\fill [black] (26.2,-56.5) -- (27,-57) -- (27,-56);
+\draw [black] (20.79,-54.71) -- (13.61,-49.39);
+\fill [black] (13.61,-49.39) -- (13.95,-50.27) -- (14.55,-49.46);
+\draw [black] (9.94,-44.88) -- (5.36,-34.92);
+\fill [black] (5.36,-34.92) -- (5.24,-35.86) -- (6.15,-35.44);
+\draw [black] (5.14,-29.39) -- (9.56,-17.41);
+\fill [black] (9.56,-17.41) -- (8.81,-17.99) -- (9.75,-18.34);
+\draw [black] (13.04,-12.85) -- (22.26,-6.25);
+\fill [black] (22.26,-6.25) -- (21.32,-6.31) -- (21.9,-7.12);
+\draw [black] (27.7,-4.5) -- (39.9,-4.5);
+\fill [black] (39.9,-4.5) -- (39.1,-4) -- (39.1,-5);
+\end{tikzpicture}
+\end{center}
+Будем считать, что $\lambda(A) = 0$.
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Границы T для цикла}
+\begin{itemize}
+\item $\mathcal{G}^c(A) = \mathcal{G}(A)$,
+\item $\sigma = n$,
+\item
+$M = (A^n)^* = E^* = E = \begin{pmatrix}
+0 & -\infty & ... & -\infty \\
+-\infty & 0 & ... & -\infty \\
+... & ... & ... & ... \\
+-\infty & -\infty & ... & 0
+\end{pmatrix}$,
+\item $C = R = E$, $S = A$, $B = -\infty$.
+\end{itemize}
+Значит, $CS^tR[A] = A^t$ для любого неотрицательного $t$.\\
+Следовательно, $T = T_1 = T_2 = 0$.
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Границы T для двустороннего цикла}
+\begin{center}
+\begin{tikzpicture}[scale=0.1]
+\tikzstyle{every node}+=[inner sep=0pt]
+\draw [black] (10.6,-14.6) circle (3);
+\draw (10.6,-14.6) node {$9$};
+\draw [black] (55.8,-15.5) circle (3);
+\draw (55.8,-15.5) node {$2$};
+\draw [black] (42.9,-4.5) circle (3);
+\draw (42.9,-4.5) node {$1$};
+\draw [black] (60.4,-30.3) circle (3);
+\draw (60.4,-30.3) node {$3$};
+\draw [black] (54.6,-46.4) circle (3);
+\draw (54.6,-46.4) node {$4$};
+\draw [black] (42.1,-56.5) circle (3);
+\draw (42.1,-56.5) node {$5$};
+\draw [black] (23.2,-56.5) circle (3);
+\draw (23.2,-56.5) node {$6$};
+\draw [black] (11.2,-47.6) circle (3);
+\draw (11.2,-47.6) node {$7$};
+\draw [black] (4.1,-32.2) circle (3);
+\draw (4.1,-32.2) node {$8$};
+\draw [black] (24.7,-4.5) circle (3);
+\draw (24.7,-4.5) node {$10$};
+\draw [black] (45.18,-6.45) -- (53.52,-13.55);
+\fill [black] (53.52,-13.55) -- (53.23,-12.65) -- (52.58,-13.41);
+\draw [black] (56.69,-18.36) -- (59.51,-27.44);
+\fill [black] (59.51,-27.44) -- (59.75,-26.52) -- (58.79,-26.82);
+\draw [black] (59.38,-33.12) -- (55.62,-43.58);
+\fill [black] (55.62,-43.58) -- (56.36,-42.99) -- (55.42,-42.66);
+\draw [black] (52.27,-48.29) -- (44.43,-54.61);
+\fill [black] (44.43,-54.61) -- (45.37,-54.5) -- (44.74,-53.72);
+\draw [black] (39.1,-56.5) -- (26.2,-56.5);
+\fill [black] (26.2,-56.5) -- (27,-57) -- (27,-56);
+\draw [black] (20.79,-54.71) -- (13.61,-49.39);
+\fill [black] (13.61,-49.39) -- (13.95,-50.27) -- (14.55,-49.46);
+\draw [black] (9.94,-44.88) -- (5.36,-34.92);
+\fill [black] (5.36,-34.92) -- (5.24,-35.86) -- (6.15,-35.44);
+\draw [black] (5.14,-29.39) -- (9.56,-17.41);
+\fill [black] (9.56,-17.41) -- (8.81,-17.99) -- (9.75,-18.34);
+\draw [black] (13.04,-12.85) -- (22.26,-6.25);
+\fill [black] (22.26,-6.25) -- (21.32,-6.31) -- (21.9,-7.12);
+\draw [black] (27.7,-4.5) -- (39.9,-4.5);
+\fill [black] (39.9,-4.5) -- (39.1,-4) -- (39.1,-5);
+\draw [black] (39.9,-4.5) -- (27.7,-4.5);
+\fill [black] (27.7,-4.5) -- (28.5,-5) -- (28.5,-4);
+\draw [black] (53.52,-13.55) -- (45.18,-6.45);
+\fill [black] (45.18,-6.45) -- (45.47,-7.35) -- (46.12,-6.59);
+\draw [black] (59.51,-27.44) -- (56.69,-18.36);
+\fill [black] (56.69,-18.36) -- (56.45,-19.28) -- (57.41,-18.98);
+\draw [black] (55.62,-43.58) -- (59.38,-33.12);
+\fill [black] (59.38,-33.12) -- (58.64,-33.71) -- (59.58,-34.04);
+\draw [black] (44.43,-54.61) -- (52.27,-48.29);
+\fill [black] (52.27,-48.29) -- (51.33,-48.4) -- (51.96,-49.18);
+\draw [black] (26.2,-56.5) -- (39.1,-56.5);
+\fill [black] (39.1,-56.5) -- (38.3,-56) -- (38.3,-57);
+\draw [black] (13.61,-49.39) -- (20.79,-54.71);
+\fill [black] (20.79,-54.71) -- (20.45,-53.83) -- (19.85,-54.64);
+\draw [black] (5.36,-34.92) -- (9.94,-44.88);
+\fill [black] (9.94,-44.88) -- (10.06,-43.94) -- (9.15,-44.36);
+\draw [black] (9.56,-17.41) -- (5.14,-29.39);
+\fill [black] (5.14,-29.39) -- (5.89,-28.81) -- (4.95,-28.46);
+\draw [black] (22.26,-6.25) -- (13.04,-12.85);
+\fill [black] (13.04,-12.85) -- (13.98,-12.79) -- (13.4,-11.98);
+\end{tikzpicture}
+\end{center}
+\begin{itemize}
+\item Оба цикла длины $2$ в этом графе имеют средний вес $0$.
+\item $\mathcal{G}^c(A) = \mathcal{G}(A)$.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Границы T для двустороннего цикла, n нечетно}
+\begin{itemize}
+\item $\sigma = 1$
+\item $C = R = M = A^*$
+\item $S = A$
+\item $B = -\infty$
+\item В $CS^tR[A] = A^*A^tA^*$ нет $-\infty$. Значит, $CS^tR[A] = A^*$.
+\item Следовательно,$CS^tR[A] = A^t$ верно тогда и только тогда, когда $A^t = A^*$.
+\item $T = exp(A)$
+\item $exp(A) = n - 1$
+\end{itemize}
+Значит, $T = T_1 = n - 1$, $T_2 = 0$.
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Границы T для двустороннего цикла, n четно}
+\begin{itemize}
+\item $\sigma = 2$
+\item $C = R = M = (A^2)^*$
+\item $S = A^2$
+\item $B = -\infty$
+\item $A^t = CS^tR = \begin{cases}
+(A^2)^* \text{, если } t \text{ четно,}\\
+A \odot (A^2)^*\text{, если } t \text{ нечетно.}\\
+\end{cases}$ при $t \ge T(A)$.
+\end{itemize}
+$T(A) = T_1(A) = \frac{n}{2}$, $T_2(A) = 0$.
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Примеры границ T}
+\begin{Th}
+Если граф $\mathcal{G}(A)$ 
+\begin{itemize}
+\item сильно связен
+\item совпадает со своим критическим подграфом
+\item $\lambda(A) = 0$
+\item его цикличность $\sigma = 1$
+\item для произвольных двух вершин верно, что все пути между ними имеют одинаковый вес
+\end{itemize}
+то $T(A) = T_{1, N}(A) = exp(A)$, а $T_{2,N}(A) = 0$.
+\end{Th}
+\end{frame}
+
+%------------------------------------------------
+
+
+\begin{frame}
+\begin{center}
+\Huge{Спасибо за внимание!}
+\end{center}
+\end{frame}
+
+\end{document} 
