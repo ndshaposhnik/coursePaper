@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.8.10)  11 AUG 2022 04:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.8.10)  13 AUG 2022 08:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1287,69 +1287,87 @@ n/12 + \OML/cmm/m/it/12 a[]$ \T2A/cmr/m/it/12 на выразимость. Для этого перебер
  []
 
 
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1174.
+Overfull \hbox (11.16194pt too wide) in paragraph at lines 1199--1200
+[]\T2A/cmr/m/it/12 Создадим массив $\OML/cmm/m/it/12 M$ \T2A/cmr/m/it/12 длины 
+$\OML/cmm/m/it/12 a[]$ \T2A/cmr/m/it/12 содержащий числа из $\U/msb/m/n/12 R[]$
+\T2A/cmr/m/it/12 . Запишем
+ []
+
+
+Overfull \hbox (10.68538pt too wide) in paragraph at lines 1199--1200
+\T2A/cmr/m/it/12 знаки арифметических операций. Будем считать, что если где-то 
+в нижеследующем
+ []
+
+[23]
+Overfull \hbox (17.35081pt too wide) in paragraph at lines 1214--1215
+\T2A/cmr/m/it/12 сравнимое с $\OML/cmm/m/it/12 i$ \T2A/cmr/m/it/12 по модулю $\
+OML/cmm/m/it/12 a[]$\T2A/cmr/m/it/12 , которое может быть представлено в виде л
+инейной комбинации
+ []
+
+[24]
+Overfull \hbox (12.16843pt too wide) in paragraph at lines 1238--1239
+\OML/cmm/m/it/12 M$ \T2A/cmr/m/n/12 лежит информация об оптимальных линейных ко
+мбинациях с не более чем $\OT1/cmr/m/n/12 2[]$ \T2A/cmr/m/n/12 слагаемыми.
+ []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1174.
+(hyperref)                removing `math shift' on input line 1247.
 
 
-Overfull \hbox (6.50517pt too wide) in paragraph at lines 1179--1180
-[][]\T2A/cmr/bx/n/12 Утверждение 10.18. []\T2A/cmr/m/it/12 Функция $\OML/cmm/m/
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1247.
+
+
+Overfull \hbox (6.50517pt too wide) in paragraph at lines 1252--1253
+[][]\T2A/cmr/bx/n/12 Утверждение 10.22. []\T2A/cmr/m/it/12 Функция $\OML/cmm/m/
 it/12 P\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 a[]; [] ; a[]\OT1/cmr/m/n/12 )$ \T2A/c
 mr/m/it/12 оценивается сверху следующими функциями: 
  []
 
 
-Overfull \hbox (26.08067pt too wide) in paragraph at lines 1188--1189
+Overfull \hbox (26.08067pt too wide) in paragraph at lines 1261--1262
 []\T2A/cmr/m/n/12 По замечанию []10.3[] граница $\OML/cmm/m/it/12 T$ \T2A/cmr/m
 /n/12 данной ромашки совпадает с еј экспонентой,
  []
 
 
-Overfull \hbox (3.95825pt too wide) in paragraph at lines 1188--1189
+Overfull \hbox (3.95825pt too wide) in paragraph at lines 1261--1262
 \T2A/cmr/m/n/12 которая по теореме []8.11[] оценивается сверху числом Виландта 
 от количества вершин $\OML/cmm/m/it/12 Wi\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 N\OT
 1/cmr/m/n/12 )$\T2A/cmr/m/n/12 ,
  []
 
 
-Overfull \hbox (26.04466pt too wide) in paragraph at lines 1199--1200
-[]\T2A/cmr/m/n/12 При подстановке $\OML/cmm/m/it/12 Wi\OT1/cmr/m/n/12 (\OML/cmm
-/m/it/12 N\OT1/cmr/m/n/12 ) + 2\OML/cmm/m/it/12 a[] \OMS/cmsy/m/n/12 ^^@ \OT1/c
-mr/m/n/12 2$ \T2A/cmr/m/n/12 вместо функции $\OML/cmm/m/it/12 ANS$ \T2A/cmr/m/n
-/12 имеем асимптотику
- []
-
-[23]
-
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1208.
+(hyperref)                removing `math shift' on input line 1284.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1208.
+(hyperref)                removing `math shift' on input line 1284.
+
+[25]
+
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 1298.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 1222.
-
-
-Overfull \hbox (16.12262pt too wide) in paragraph at lines 1222--1223
+Overfull \hbox (16.12262pt too wide) in paragraph at lines 1298--1299
 \T2A/cmr/m/n/12 индуцированный подграф исходного графа $\OMS/cmsy/m/n/12 G$\T2A
 /cmr/m/n/12 , порожденный множеством вершин $\OML/cmm/m/it/12 V\OT1/cmr/m/n/12 
 (\OMS/cmsy/m/n/12 G\OT1/cmr/m/n/12 )\OMS/cmsy/m/n/12 n\OML/cmm/m/it/12 V\OT1/cm
 r/m/n/12 (\OMS/cmsy/m/n/12 G[]\OT1/cmr/m/n/12 )$\T2A/cmr/m/n/12 . 
  []
 
-[24]
-Overfull \hbox (22.94853pt too wide) in paragraph at lines 1304--1305
+[26]
+Overfull \hbox (22.94853pt too wide) in paragraph at lines 1380--1381
 \T2A/cmr/m/n/12 либо соединяет текущий подграф с другим. Переберем все возможны
 е варианты расположения
  []
 
-Excluding 'comment' comment. [25]
-Overfull \hbox (33.54948pt too wide) in paragraph at lines 1362--1363
+Excluding 'comment' comment. [27]
+Overfull \hbox (33.54948pt too wide) in paragraph at lines 1442--1443
 []$\OMS/cmsy/m/n/12 W\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 i [] j\OT1/cmr/m/n/12 )$
 \T2A/cmr/m/n/12 , $\OMS/cmsy/m/n/12 W[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 i [] j
 \OT1/cmr/m/n/12 )$\T2A/cmr/m/n/12 , $\OMS/cmsy/m/n/12 W[]\OT1/cmr/m/n/12 (\OML/
@@ -1358,23 +1376,27 @@ cmm/m/it/12 i [] j\OT1/cmr/m/n/12 )$ \T2A/cmr/m/n/12 --- аналогично предыдущему
  []
 
 
-Underfull \hbox (badness 3679) in paragraph at lines 1394--1397
+Underfull \hbox (badness 3679) in paragraph at lines 1474--1477
 []\T2A/cmr/m/n/12 Ю.А. Альпин, И.В. Башкин. \T2A/cmr/m/it/12 Неотрицательные це
 пные матрицы \T2A/cmr/m/n/12 Казанский
  []
 
-[26] [27] (./Course.aux)
+[28] (./Course.aux)
 Package rerunfilecheck Info: File `Course.out' has not changed.
 (rerunfilecheck)             Checksum: 68CEE964A2793B3F11008544427A1678;6150.
  ) 
 Here is how much of TeX's memory you used:
- 23287 strings out of 477678
- 424322 string characters out of 5832469
- 727943 words of memory out of 5000000
- 41457 multiletter control sequences out of 15000+600000
+ 23301 strings out of 477678
+ 424476 string characters out of 5832469
+ 728039 words of memory out of 5000000
+ 41460 multiletter control sequences out of 15000+600000
  493243 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 100i,18n,104p,1315b,599s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 100i,18n,104p,1315b,623s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+pdfTeX warning (dest): name{theorem.10.19} has been referenced but does not exi
+st, replaced by a fixed one
+
 
 pdfTeX warning (dest): name{theorem.10.16} has been referenced but does not exi
 st, replaced by a fixed one
@@ -1398,10 +1420,10 @@ nts/type1/public/cm-super/sfbx1440.pfb></opt/texlive/2022/texmf-dist/fonts/type
 /cm-super/sfrm1200.pfb></opt/texlive/2022/texmf-dist/fonts/type1/public/cm-supe
 r/sfrm1440.pfb></opt/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm20
 74.pfb></opt/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on Course.pdf (27 pages, 537946 bytes).
+Output written on Course.pdf (28 pages, 547792 bytes).
 PDF statistics:
- 610 PDF objects out of 1000 (max. 8388607)
- 532 compressed objects within 6 object streams
- 214 named destinations out of 1000 (max. 500000)
+ 633 PDF objects out of 1000 (max. 8388607)
+ 554 compressed objects within 6 object streams
+ 225 named destinations out of 1000 (max. 500000)
  257 words of extra memory for PDF output out of 10000 (max. 10000000)
 
