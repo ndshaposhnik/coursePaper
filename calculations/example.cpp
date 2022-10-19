@@ -4,7 +4,28 @@ using std::cin;
 using std::cout;
 
 int main() {
-    TropicalMatrix<5> A = { {0, 0, -1, _inf, -7},
+    const int N = 4;
+    TropicalMatrix<N> A;
+    for (int i = 0; i < N; i++) {
+        A[i][(i + 1) % N] = 0;
+        A[(i + 1) % N][i] = 0;
+    }
+
+    int sigma = 2;
+    auto M = (A^sigma).kleene();
+    std::set<size_t> g;
+    for (int i = 0; i < N; i++) {
+        g.insert(i);
+    }
+    auto C = getC(M, g);
+    auto S = getS(A, g);
+    auto R = getR(M, g);
+    
+    //cout << A << '\n' << M << '\n' << C << '\n' << S << '\n' << R << '\n' << B << '\n';
+    size_t T = getT(A, C, S, R);
+    cout << T << std::endl;
+
+    /*TropicalMatrix<5> A = { {0, 0, -1, _inf, -7},
                             {0, 0, -1, _inf, -7},
                             {-1, -1, -1, -3, -7},
                             {-3, _inf, _inf, -2, -7},
@@ -25,6 +46,6 @@ int main() {
     cout << T << ' ' << T1 << ' ' << T2 << '\n';
     //cout << A.power(T1) << '\n' << C * S.power(T1) * R + B.power(T1) << '\n';
     cout << C * S.power(T2) * R << '\n' << B.power(T2) << '\n';
-
+*/
     return 0;
 }
