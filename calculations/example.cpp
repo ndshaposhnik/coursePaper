@@ -4,14 +4,14 @@ using std::cin;
 using std::cout;
 
 int main() {
-    const int N = 4;
+    const int N = 15;
     TropicalMatrix<N> A;
     for (int i = 0; i < N; i++) {
         A[i][(i + 1) % N] = 0;
-        A[(i + 1) % N][i] = 0;
     }
+    A += A.t();
 
-    int sigma = 2;
+    int sigma = gcd(2, N);
     auto M = (A^sigma).kleene();
     std::set<size_t> g;
     for (int i = 0; i < N; i++) {

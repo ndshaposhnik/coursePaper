@@ -141,6 +141,16 @@ public:
         return r;
     }
 
+    TropicalMatrix<M, N> t() const {
+        TropicalMatrix<M, N> res;
+        for (size_t i = 0; i < M; i++) {
+            for (size_t j = 0; j < N; j++) {
+                res[i][j] = (*this)[j][i];
+            }
+        }
+        return res;
+    }
+
 };
 
 template<size_t N, size_t M>
@@ -249,7 +259,7 @@ template<size_t N>
 TropicalMatrix<N, N> getC(const TropicalMatrix<N, N>& M, std::set<size_t> g) {
     TropicalMatrix<N, N> res;
     for (int v : g) {
-        for (int i = 0; i < N; ++i) {
+        for (size_t i = 0; i < N; ++i) {
             res[i][v] = M[i][v];
         }
     }
@@ -260,7 +270,7 @@ template<size_t N>
 TropicalMatrix<N, N> getR(const TropicalMatrix<N, N>& M, std::set<size_t> g) {
     TropicalMatrix<N, N> res;
     for (int v : g) {
-        for (int i = 0; i < N; ++i) {
+        for (size_t i = 0; i < N; ++i) {
             res[v][i] = M[v][i];
         }
     }
