@@ -17,6 +17,7 @@
 \usepackage{float}
 \usepackage[labelsep=period]{caption}
 \usepackage{accents}
+\usepackage{tkz-graph}
 
  \geometry{
  a4paper,
@@ -59,9 +60,9 @@
 
 \blfootnote{\textit{Ключевые слова:} тропическая алгебра, ориентированные графы, степени матриц, периодичность, граница периодичности.}
 
-В настоящей статье обсуждается граница периодичности, определённая в \cite{maxPlusAtWork}, для букетов из циклов, то есть для графа, состоящего из ориентированных циклов, пересекающихся по одной вершине. Получен алгоритм вычисления этой границы периодичности для букета из ориентированных циклов.
+В работе рассматривается граница периодичности, определённая в \cite{maxPlusAtWork}. Приводится алгоритм для вычисления этой характеристики для букета из циклов, то есть для графа, состоящего из ориентированных циклов, пересекающихся по одной вершине. Также получена формула для вычисления границы периодичности для графа-ромашки, то есть для ориентированного цикла, к каждой вершине которого подвешено по циклу.
 
-In this paper we discuss a particular case of transient defined by Sergeev in \cite{maxAlgebraicPowers} for unweighted digraphs and for primitive digraphs. An algorithm for calculating this transient for bouquet of directed cycles (for cycles intersecting at one vertex) is established.
+In this paper we discuss a transient defined by Sergeev in \cite{maxPlusAtWork}. An algorithm is given to calculate transient for a bouquet of cycles (for a graph consisting of oriented cycles intersecting at one vertex). A formula is also obtained for calculating the transient for a chamomile graph (for an oriented cycle, to each vertex of which a cycle is suspended).
 
 \section{Введение}
 \label{definitions}
@@ -400,10 +401,10 @@ M = (A^n)^* = I^* = I = \begin{pmatrix}
     \node[node_style] (v3) at (3, 0) {3};
     \node[node_style] (v4) at (1.5, -1.5) {4};
    
-    \path[->] (v1) edge node[above left] {\textbf{0}} (v2)
-    			  (v2) edge node[above right] {\textbf{0}} (v3)
-    			  (v3) edge node[below right] {\textbf{0}} (v4)
-    			  (v4) edge node[below left] {\textbf{0}} (v1);
+    \path[->, bend left] (v1) edge (v2)
+    			  (v2) edge (v3)
+    			  (v3) edge (v4)
+    			  (v4) edge (v1);
 
 \end{tikzpicture}
 \caption{Ориентированный цикл.}
@@ -419,10 +420,14 @@ M = (A^n)^* = I^* = I = \begin{pmatrix}
     \node[node_style] (v3) at (3, 0) {3};
     \node[node_style] (v4) at (1.5, -1.5) {4};
    
-    \path[<->] (v1) edge node[above left] {\textbf{0}} (v2)
-    			  (v2) edge node[above right] {\textbf{0}} (v3)
-    			  (v3) edge node[below right] {\textbf{0}} (v4)
-    			  (v4) edge node[below left] {\textbf{0}} (v1);
+    \path[<-, bend right] (v1) edge (v2)
+    			  (v2) edge (v3)
+    			  (v3) edge (v4)
+    			  (v4) edge (v1);
+	\path[->, bend left] (v1) edge (v2)
+    			  (v2) edge (v3)
+    			  (v3) edge (v4)
+    			  (v4) edge (v1);
 
 \end{tikzpicture}
 \caption{Двусторонний цикл.}
@@ -608,19 +613,20 @@ T(A) = (exp(\mathcal{G}) + 1)\sigma - 1.
     \tikzstyle{node_style} = [circle,draw=black ,font=\sffamily\Large\bfseries]
     \tikzstyle{edge_style} = [draw=black]
     \node[node_style] (v1) at (0, 0) {1};
-    \node[node_style] (v2) at (2.1, 1.5) {2};
-    \node[node_style] (v3) at (2.1, -1.5) {3};
+    \node[node_style] (v2) at (2.5, 1.5) {2};
+    \node[node_style] (v3) at (2.5, -1.5) {3};
     \node[node_style] (v4) at (-1.5, 1.5) {4};
     \node[node_style] (v5) at (-3, 0) {5};
     \node[node_style] (v6) at (-1.5, -1.5) {6};
    
-    \path[->] (v1) edge node[above left] {\textbf{0}} (v2)
-    			       edge node[above right] {\textbf{0}} (v4)
-    			  (v2) edge node[above right] {\textbf{0}} (v3)
-    			  (v3) edge node[above right] {\textbf{0}} (v1)
-    			  (v4) edge node[above left] {\textbf{0}} (v5)
-    			  (v5) edge node[above right] {\textbf{0}} (v6)
-    			  (v6) edge node[above left] {\textbf{0}} (v1);
+    \path[->, bend left] (v1) edge (v2)
+    			  (v2) edge (v3)
+    			  (v3) edge (v1);
+	\path[->, bend right] 
+    			  (v1) edge (v4)
+    			  (v4) edge (v5)
+    			  (v5) edge (v6)
+    			  (v6) edge (v1);
 \end{tikzpicture}
 \caption{Букет циклов длины $3$ и $4$.}
 \end{figure}
@@ -955,28 +961,49 @@ P(a_1, \dots, a_n) = \max\limits_{0 \le i < a_1} M[i] - a_1 + 1.
 Назовём $(k_1, \dots, k_n)$\textit{-ромашкой} ориентированный цикл $(1, 2, \dots, n, 1)$ длины $n$, к $i$-ой вершине которого "прикреплён" цикл длины $k_in$. Назовём цикл $(1, 2, \dots, n, 1)$ \textit{главным циклом}, а цикл, не являющийся главным, в котором лежит вершина $i$-ого главного цикла, \textit{$i$-ым неглавным циклом}.
 \end{definition}
 
-\begin{figure}[H]
+\begin{figure}[h]
+\label{chamomileFig}
 \centering
 \begin{tikzpicture}[shorten >=1pt, auto, node distance=3cm, ultra thick]
     \tikzstyle{node_style} = [circle,draw=black ,font=\sffamily\Large\bfseries]
     \tikzstyle{edge_style} = [draw=black]
-    \node[node_style] (v1) at (-2, 0) {1};
-    \node[node_style] (v2) at (0, 0) {2};
-    \node[node_style] (v3) at (2, 2) {3};
-    \node[node_style] (v4) at (4, 0) {4};
-    \node[node_style] (v5) at (2, -2) {5};
-    \node[node_style] (v6) at (-4, 0) {6};
+    \node[node_style] (v1) at (1, 1) {1};
+    \node[node_style] (v2) at (1, -1) {2};
+    \node[node_style] (v3) at (-1, 0) {3};
+    \node[node_style] (v4) at (2, 2.6) {4};
+    \node[node_style] (v5) at (3, 1) {5};
+    \node[node_style] (v6) at (3, -1) {6};
+    \node[node_style] (v7) at (4, -3) {7};
+    \node[node_style] (v8) at (3, -5) {8};
+    \node[node_style] (v9) at (1, -5) {9};
+    \node[node_style] (v10) at (0, -3) {10};
+    \node[node_style] (v11) at (-2, 2) {11};
+    \node[node_style] (v12) at (-4, 2) {12};
+    \node[node_style] (v13) at (-5, 0) {13};
+    \node[node_style] (v14) at (-4, -2) {14};
+    \node[node_style] (v15) at (-2, -2) {15};
+    
    
-    \path[->] (v1) edge (v2)
-    			       edge (v6)
-    			  (v2) edge (v1)
-    			  	   edge (v3)
-    			  (v3) edge (v4)
-    			  (v4) edge (v5)
-    			  (v5) edge (v2)
-    			  (v6) edge (v1);
+    \path[->, bend left] (v1) edge (v2)
+    			  			     edge (v4)
+	        	      	    (v2) edge (v3)
+    			  	       	     edge (v6)
+    			      	    (v3) edge (v1)
+    			      	    (v4) edge (v5)
+    			      	    (v5) edge (v1)
+    			      	    (v6) edge (v7)
+    			      	    (v7) edge (v8)
+    			      	    (v8) edge (v9)
+    			      	    (v9) edge (v10)
+    			      	    (v10) edge (v2);
+	\path[->, bend right] (v3) edge (v11)
+    			      	    (v11) edge (v12)
+    			      	    (v12) edge (v13)
+    			      	    (v13) edge (v14)
+    			      	    (v14) edge (v15)
+    			      	    (v15) edge (v3);
 \end{tikzpicture}
-\caption{Граф-ромашка с $n = 2, k_1 = 1, k_2 = 2$.}
+\caption{Граф-ромашка с $n = 3, k_1 = 1, k_2 = 2, k_3 = 2$.}
 \end{figure}
 
 Заметим, что индекс цикличности такого графа равен $n$. Найдём границу периодичности для него.
@@ -1055,5 +1082,6 @@ Linear Algebra and its Applications. \textbf{431} (2009), 2395–2406.
 N. Shaposhnik. Transient for bouquet of cycles.
 
 Keywords: max-plus, digraphs, matrix powers, periodicity, transient, bouquets of cycles.
+
 
 \end{document}
