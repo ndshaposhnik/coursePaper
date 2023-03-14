@@ -1,0 +1,1087 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian, english]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{centernot}
+\usepackage{geometry}
+\usetikzlibrary{calc}
+\usepackage{diagbox}
+\newcounter{tempc}
+\usepackage{float}
+\usepackage[labelsep=period]{caption}
+\usepackage{accents}
+\usepackage{tkz-graph}
+
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+ 
+\addto\captionsenglish{\renewcommand{\figurename}{Рис.}}
+\addto\captionsenglish{\renewcommand{\refname}{Список литературы}}
+\addto\captionsenglish{\renewcommand{\theoremstyle}{plain}}
+\addto\captionsenglish{\renewcommand{\proofname}{\normalfont {\textbf {Доказательство.}}}}
+
+
+\title{Граница периодичности для букета циклов}
+\author{Никита Шапошник, Б05-025\\ научный руководитель: А. Э. Гутерман}
+
+\newtheorem{theorem}{Теорема}[section]
+\newtheorem{proposition}[theorem]{Утверждение}
+\newtheorem{remark}[theorem]{Замечание}
+\newtheorem{lemma}[theorem]{Лемма}
+\newtheorem{corollary}[theorem]{Следствие}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Определение}
+\newtheorem{example}[theorem]{Пример}
+\newtheorem{algorithm}[theorem]{Алгоритм}
+
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
+\date{}
+
+\begin{document}
+\maketitle
+
+\blfootnote{\textit{Ключевые слова:} тропическая алгебра, ориентированные графы, степени матриц, периодичность, граница периодичности.}
+
+В работе рассматривается граница периодичности, определённая в \cite{maxPlusAtWork}. Приводится алгоритм для вычисления этой характеристики для букета из циклов, то есть для графа, состоящего из ориентированных циклов, пересекающихся по одной вершине. Также получена формула для вычисления границы периодичности для графа-ромашки, то есть для ориентированного цикла, к каждой вершине которого подвешено по циклу.
+
+In this paper we discuss a transient defined by Sergeev in \cite{maxPlusAtWork}. An algorithm is given to calculate transient for a bouquet of cycles (for a graph consisting of oriented cycles intersecting at one vertex). A formula is also obtained for calculating the transient for a chamomile graph (for an oriented cycle, to each vertex of which a cycle is suspended).
+
+\section{Введение}
+\label{definitions}
+\begin{definition}
+\textit{Тропическим полукольцом} будем называть множество $\mathbb{R}_{\max} = \mathbb{R} \ \cup ~\{-\infty\}$ с операциями сложения $\oplus$ и умножения $\otimes$: \begin{align*}
+            a \oplus b &= \max(a, b),\\
+            a \otimes b &= a + b.
+        \end{align*}
+\end{definition}
+
+Нетрудно проверить, что $\mathbb{R}_{\max}$, действительно, является полукольцом:
+\begin{itemize}
+\item операция сложения $\oplus$ коммутативна и ассоциативна, существует нейтральный по сложению элемент~$-\infty$;
+\item умножение $\otimes$ ассоциативно. Более того, оно коммутативно и имеет нейтральный элемент $0$;
+\item умножение дистрибутивно относительно сложения, то есть $a \otimes (b \oplus c) = a \otimes b \oplus a \otimes c$ для любых $a, b, c \in \mathbb{R}_{\max}$;
+\item умножение на~$-\infty$ всегда даёт~$-\infty$.
+\end{itemize}
+
+Заметим, что для любого $a \in \mathbb{R}_{\max}, \ a \ne -\infty$ существует обратный по умножению элемент $a^- = -a$, то есть $a^- \otimes a = a \otimes a^- = 0$. Степени скаляров в $\mathbb{R}_{\max}$ означают обычное умножение: $\lambda^{\otimes t} = t \cdot \lambda$.
+
+Множество матриц размера $n \times m$ над $\mathbb{R}_{\max}$ будем обозначать через $\mathbb{R}_{\max}^{n \times m}$. Для тропической матрицы $A$ будем писать $A > -\infty$, если в ней нет элементов, равных~$-\infty$. Для двух тропических матриц $A = (a_{ij})$ и $B = (b_{ij})$ будем писать $A \ge B$, если $a_{ij} \ge b_{ij}$ для любых допустимых $i$, $j$.
+
+В данной работе нам интересны степени тропических матриц. Для квадратной тропической матрицы $A = (a_{ij}) \in \mathbb{R}_{\max}^{n \times n}$ и для произвольного $t \ge 1$ определим $t$-ую тропическую степень матрицы $A$ следующим образом: \begin{equation*}
+A^t = \underbrace{A \otimes \dots \otimes A}_{t \text{ раз}}.
+\end{equation*}
+
+Доопределим нулевую степень тропической матрицы: $A^0 = I$ --- единичная тропическая матрица, где все диагональные элементы равны $0$, а все недиагональные элементы равны~$-\infty$.
+
+Путь в графе $\mathcal{G}$ --- это конечная последовательность вершин $(i_0, i_1, \dots, i_L)$ графа $\mathcal{G}$ таких, что $(i_k, i_{k + 1})$ является ребром в графе $\mathcal{G}$ для $0 \le k \le L - 1$. Путь, вершины в котором не повторяются, называется простым. Число $L$ будем называть длиной пути, а сумму весов его рёбер --- весом пути. Расстоянием от вершины $u$ до вершины $v$ назовём минимальную длину пути, начинающегося в вершине $u$ и кончающегося в вершине $v$.
+
+Назовём циклом путь, у которого вершины $i_0$ и $i_L$ совпадают. Если никакие две вершины, кроме начала и конца, в цикле не повторяются, то такой цикл назовём простым. 
+
+По матрице $A$ можно построить ориентированный взвешенный граф $\mathcal{G}(A) = (V, E)$, здесь множество вершин $V = \{ 1, 2, \dots, n\}$, а множество рёбер $E \subseteq V \times V$, где $(i, j) \in E$ тогда и только тогда, когда $a_{ij} \ne -\infty$. Веса рёбер определяются функцией $w : E \rightarrow \mathbb{R}$, $(i, j) \mapsto a_{ij}$. Говорят, что $A$ является матрицей смежности графа $\mathcal{G}(A)$.
+
+Наоборот, по взвешенному ориентированному графу $\mathcal{G}$ на $n$ вершинах аналогично можно построить матрицу смежности $A = (a_{ij}) \in \mathbb{R}_{\max}^{n \times n}$. Для этого пронумеруем вершины числами от $1$ до $n$ и запишем в $a_{ij}$ вес ребра от $i$ до $j$, если оно есть, и~$-\infty$ иначе.
+
+\begin{proposition} [{\cite[равенство (9)]{bounds}}]
+\label{entriesInPower}
+Элемент матрицы $A^t$ с индексами $i, j$ равен максимальному весу пути в графе $\mathcal{G}(A)$ среди всех путей от $i$ до $j$ длины ровно $t$.
+\end{proposition}
+
+\begin{definition}
+Назовём ориентированный граф \textit{сильно связным}, если для любых вершин $u, v$ существует путь из $u$ в $v$.
+
+Назовем тропическую матрицу $A$ \textit{неразложимой}, если граф $\mathcal{G}(A)$ сильно связен.
+\end{definition}
+
+\begin{definition}
+Тропическая матрица $A$ называется \textit{примитивной}, если $A^t > -\infty$ при некотором целом неотрицательном $t$. В этом случае минимальное такое $t$, при котором $A^t > -\infty$, называется \textit{экспонентой} матрицы $A$ и обозначается через $exp(A)$.
+\end{definition}
+
+\begin{definition}
+Ориентированный граф $\mathcal{G}$ называется \textit{примитивным}, если для любых двух вершин $u, v$ графа $\mathcal{G}$ существует путь от $u$ до $v$ длины ровно $t$ для некоторого целого неотрицательного $t$.  В этом случае минимальное такое $t$ называется \textit{экспонентой графа} $\mathcal{G}$ и обозначается через $exp(\mathcal{G})$.
+\end{definition}
+
+По утверждению \ref{entriesInPower}, примитивность матрицы $A$ эквивалентна примитивности графа $\mathcal{G}(A)$. Более того, $exp(A) = exp(\mathcal{G}(A))$.
+
+\begin{definition} [{\cite[опр. 2.1]{cyclicity}}]
+\textit{Индекс цикличности} ориентированного графа $\mathcal{G}$ обозначается через $\sigma_\mathcal{G}$ и определяется следующим образом:
+\begin{enumerate}
+    \item Если $\mathcal{G}$ сильно связен и содержит хотя бы две вершины, то цикличность равна наибольшему общему делителю всех длин ориентированных циклов в $\mathcal{G}$.
+    \item Если в $\mathcal{G}$ есть только одна вершина (с петлей или без), то $\sigma_\mathcal{G} = 1$.
+    \item Если $\mathcal{G}$ не сильно связен, то его цикличность равна наименьшему общему кратному цикличностей всех максимальных его сильно связных подграфов.
+\end{enumerate}
+\end{definition}
+
+С помощью индекса цикличности можно сформулировать критерий примитивности ориентированного графа:
+
+\begin{theorem} [{\cite[теорема 3.4.4]{combinatorialMatrixTheory}}]
+Ориентированный граф $\mathcal{G}$ является примитивным тогда и только тогда, когда $\mathcal{G}$ сильно связен, и его индекс цикличности равен $1$.
+\end{theorem}
+
+Заметим, что если матрица $A$ является примитивной, то $A^t > -\infty$ для любого $t \ge exp(A)$. Действительно, если в графе $\mathcal{G}(A)$ для произвольных двух вершин $u, v$ есть путь длины $exp(A)$ из $u$ в $v$, то есть и путь длины $t$ --- достаточно взять вершину $w$, расстояние от которой до вершины $v$ равно $t - exp(A)$. Такая вершина $w$ существует, так как граф $\mathcal{G}(A)$ сильно связен. Тогда существует путь длины $exp(A)$ от $u$ до $w$, и путь длины $t - exp(A)$ от $w$ до $v$. Взяв конкатенацию этих путей, получим искомый путь нужной длины.
+
+Рассмотрим ориентированный цикл $(i_1, \dots, i_L, i_1)$ длины $L$ в $\mathcal{G}(A)$. Средний вес ребра в цикле --- это тропическое среднее геометрическое весов ребер в нём:
+\begin{equation*}
+    (a_{i_1 i_2} \otimes a_{i_2 i_3} \otimes \dots \otimes a_{i_L i_1})^{\otimes{1/L}} =
+    \frac{1}{L}(a_{i_1 i_2} + a_{i_2 i_3} + \dots + a_{i_L i_1})
+\end{equation*}
+
+\begin{definition}
+Ориентированный цикл называется \textit{критическим}, если у него максимальный средний вес среди всех ориентированных циклов в графе. \textit{Критический подграф} $\mathcal{G}^c$ графа $\mathcal{G}$ --- это объединение всех критических циклов в $\mathcal{G}$.
+
+Максимальный средний вес цикла в $\mathcal{G}(A)$ обозначается через $\lambda(A)$, т.е.
+\begin{equation*}
+        \lambda(A) = \bigoplus_{L = 1}^n \bigoplus_{i_1, \dots, i_L} (a_{i_1 i_2} \otimes \dots \otimes a_{i_L i_1})^{\otimes{1/L}} = \max_{L = 1}^n \max_{i_1, \dots, i_L} \frac{(a_{{i_1}{i_2}} + \dots + a_{{i_{L}}{i_1}})}{L}
+\end{equation*}
+\end{definition}
+
+\begin{definition}
+\textit{Звездой Клини} тропической матрицы $A$ с называется сумма следующего ряда, если она существует:
+
+\begin{equation}
+\label{kleenyEq}
+    A^* = \bigoplus_{i = 0}^{\infty} A^i.
+\end{equation}
+\end{definition}
+
+\begin{theorem} [{\cite[теорема 2.2, часть 1]{onVisualizationScaling}}]
+Ряд (\ref{kleenyEq}) сходится тогда и только тогда, когда $\lambda(A) \le 0$. В этом случае 
+\begin{equation*}
+A^* = \bigoplus_{i = 0}^{n - 1} A^i.
+\end{equation*}
+\end{theorem}
+
+\begin{proposition} [{\cite[равенство (8)]{15WeakCSRExpantion}}]
+Элемент матрицы $A^*$ с индексами $i, j$ равен максимальному весу пути в графе $\mathcal{G}(A)$ среди всех путей от $i$ до $j$.
+\end{proposition}
+
+\begin{definition}
+\label{girthCircCD}
+\textit{Обхватом} графа $\mathcal{G}$ называется наименьшая длина цикла в $\mathcal{G}$ и обозначается через $g(\mathcal{G})$ (от английского girth).
+
+\textit{Окружностью} графа $\mathcal{G}$ называется наибольшая длина цикла в $\mathcal{G}$ и обозначается через $c(\mathcal{G})$ (от английского circumference).
+
+Максимальную длину простого пути в графе $\mathcal{G}$ обозначим через $l(\mathcal{G})$.
+\end{definition}
+
+Справедлива следующая теорема о цикличности, см. \cite[теорема 3.9]{maxPlusAtWork}.
+
+\begin{theorem}
+\label{Tdefinition}
+Для неразложимой $A$ существуют такие натуральное $\sigma$ и целое неотрицательное $T$, что для любого $t \ge T$\begin{equation*}
+A^{t + \sigma} = \lambda^{\otimes \sigma} \otimes A^t,
+\end{equation*}
+где $\lambda = \lambda(A)$ --- наибольший средний вес цикла в $\mathcal{G}(A)$, и $\lambda^{\otimes \sigma} = \underbrace{\lambda \otimes \dots \otimes \lambda}_{\sigma \text{ раз}}$.
+\end{theorem}
+
+\begin{definition}
+Наименьшее число $T$, удовлетворяющее условиям теоремы \ref{Tdefinition}, обозначается через $T(A)$ и называется \textit{границей периодичности} матрицы $A$.
+\end{definition}
+
+В \cite{maxAlgebraicPowers} теорема о цикличности переформулируется в терминах $CSR$-разложения, которое определяется там же: для любого $t \ge T(A)$\begin{equation*}
+A^t = \lambda^{\otimes t} \otimes CS^tR.
+\end{equation*}
+
+Основная цель работы --- получение границы периодичности для букета циклов, то есть для графа, состоящего из ориентированных циклов, имеющих одну общую для всех вершину. Обозначим через $T(a_1, \dots, a_n; \sigma)$ границу периодичности для букета из циклов длины $a_1\sigma, \dots, a_n\sigma$. Приводится алгоритм для вычисления этой границы периодичности. Для этого вводится вспомогательная функция $P(a_1, \dots, a_n)$, которая равна наименьшему числу, начиная с которого можно получать любые числа в виде линейной комбинации чисел $a_1, \dots, a_n$ с неотрицательными коэффициентами.
+
+В разделе \ref{CSR} вводятся матрицы $C$, $S$, $R$ и определяется граница периодичности. В разделе \ref{wedge} определяется букет из циклов и доказывается формула для границы периодичности такого графа через вспомогательную функцию $P$. В разделе \ref{algorithmSection} описывается алгоритм, вычисляющий функцию $P$.
+
+\section{CSR-разложение}
+\label{CSR}
+Во введении была определена граница периодичности $T(A)$. Переформулируем теорему о цикличности в терминах удобного для данной цели $CSR$-разложения.
+
+Рассмотрим неразложимую матрицу $A \in \mathbb{R}_{\max}^{n \times n}$. Введем обозначения: $\sigma = \sigma_{\mathcal{G}^c(A)}$ --- индекс цикличности критического подграфа, $M = ((\lambda(A)^-\otimes A^\sigma)^*$.
+
+Обозначим для произвольного графа $\mathcal{G}$ множество его вершин через $V(\mathcal{G})$, а множество его рёбер --- через $E(\mathcal{G})$.
+
+Определим матрицы $C, S, R \in \mathbb{R}_{\max}^{n \times n}$ следующим образом:
+\begin{align*}
+    c_{ij} &= \begin{cases}
+        m_{ij}, &\text{если } j \in V(\mathcal{G}^c(A)) \\
+        -\infty, &\text{иначе,}
+    \end{cases}
+    &
+    r_{ij} = \begin{cases}
+        m_{ij}, &\text{если } i \in V(\mathcal{G}^c(A)) \\
+        -\infty, &\text{иначе,}
+    \end{cases}
+    \\
+    s_{ij} &= \begin{cases}
+        \lambda(A)^- \otimes a_{ij}, &\text{если } (i, j) \in E(\mathcal{G}^c(A)) \\
+        -\infty, &\text{иначе.}
+    \end{cases}
+\end{align*}
+
+Обозначим произведение матриц $CS^tR$, построенных по матрице $A$, через $CS^tR[A]$ для произвольного $t$.
+
+\begin{theorem} [{Переформулировка теоремы о цикличности, \cite[теорема 2.2]{15WeakCSRExpantion}}]
+\label{theorem:CSRdecompositionTheorem}
+Для любого $t \ge T(A)$:
+\begin{equation}
+\label{equation:TDefinition}
+    A^t = \lambda(A)^{\otimes t} \otimes CS^tR[A].
+\end{equation}
+\end{theorem}
+
+Заметим, что если $\lambda(A) = 0$, то (\ref{equation:TDefinition}) записывается в виде:
+\begin{equation*}
+    A^t = CS^tR[A].
+\end{equation*}
+
+Таким образом, матрица $C$ отвечает за пути, кончающиеся в критическом подграфе, и длины которых делятся на $\sigma$; матрица $S^t$ отвечает за пути длины ровно $t$, целиком лежащие в критическом подграфе; матрица $R$ --- за пути, начинающиеся в критическом подграфе, и длины которых делятся на $\sigma$. Значит, произведение $CS^tR$ отвечает за конкатенацию трёх вышеописанных путей.
+
+\begin{proposition} [{\cite[утверждение 3.2]{21CSRExpansionsOfMatrixPowersInMaxAlgebra}}]
+\label{periodicity}
+Для любого $t \ge 0$ верно, что 
+$CS^{t+\sigma}R[A] = CS^tR[A]$. Иначе говоря, последовательность матриц $\{ CS^tR[A]\}_{t\ge0}$ периодична с периодом~$\sigma$.
+\end{proposition}
+
+Через $\mathcal{W}^{t, l}(i \xrightarrow{\mathcal{G}'} j)$ обозначим множество путей от вершины $i$ к вершине $j$, длина которых сравнима с $t$ по модулю $l$, и проходящих хотя бы через одну вершину графа $\mathcal{G}'$. Для множества $\mathcal{W}$ через $p(\mathcal{W})$ обозначим максимальный вес пути из множества $\mathcal{W}$.
+
+\begin{proposition} [{\cite[теорема 6.1]{15WeakCSRExpantion}}]
+\label{entriesInCSR}
+Если $\lambda(A) = 0$, то верно следующее равенство:
+\begin{equation}
+    \big(CS^tR[A]\big)_{ij} = p(\mathcal{W}^{t, \sigma}(i \xrightarrow{\mathcal{G}^c(A)} j)),
+\end{equation}
+где $\sigma$ обозначает цикличность $\mathcal{G}^c(A)$, а через $(X)_{ij}$ обозначается элемент матрицы $X$, стоящий на пересечении строки $i$ и столбца $j$.
+\end{proposition}
+
+Введём ещё одну функцию --- $T_1(A, B)$. Для этого зафиксируем матрицу $B$ такую, что $B \le A$.
+
+\begin{definition} [{\cite[страница 165]{15WeakCSRExpantion}}]
+\label{T1definition}
+$T_1(A, B)$ --- наименьшее целое положительное число такое, что для любого $t \ge T_1(A, B)$:
+\begin{equation}
+\label{equation:T1definition}
+    A^t = \big(\lambda(A)^{\otimes t} \otimes CS^tR[A] \big) \oplus B^t.
+\end{equation}
+\end{definition}
+
+Если $\lambda(A) = 0$, то (\ref{equation:T1definition}) записывается в виде $A^t = CS^tR[A] \oplus B^t$. Если $B = -\infty$, то $T(A) = T_1(A, B)$.
+
+\begin{proposition} [Определённость $T_1(A, B)$]
+Функция $T_1(A, B)$ определена для любой неразложимой матрицы $A$ и для любой $B \le A$, то есть существует такое число $t_1$, что для любого $t \ge t_1$ верно равенство (\ref{equation:T1definition}).
+\end{proposition}
+\begin{proof}
+Заметим, что при любых $t$ верно неравенство $A^t \ge B^t$, и при $t \ge T(A)$, по определению $T(A)$, будет верно равенство $A^t = \lambda(A)^{\otimes t} \otimes CS^tR[A]$.
+
+Значит, при $t \ge T(A)$ будет верно равенство (\ref{equation:T1definition}).
+\end{proof}
+
+Есть множество способов определить матрицу $B$, здесь мы рассматриваем один частный случай: способ Нахтигалля \cite[страница 170]{15WeakCSRExpantion}. Определим матрицу $B_N[A] = (b_{ij}) \in \mathbb{R}_{\max}^{n \times n}$ следующим образом:
+\begin{equation*}
+    b_{ij} = 
+    \begin{cases}
+        -\infty,& \text{ если $i \in V(\mathcal{G}^c)$ или $j\in V(\mathcal{G}^c)$}, \\
+        a_{ij},& \text{ иначе.}
+    \end{cases}
+\end{equation*}
+
+Обозначим $T_1(A, B)$ для описанной матрицы $B_N[A]$ через $T_{1, N}(A)$.
+
+\begin{remark} [{Инвариантность относительно умножения на скаляр, \cite[страница 287]{bounds}}] { \ }
+\label{invarianceOfT}
+Если $\mu \ne -\infty$, то
+
+\begin{itemize}
+	\item $\lambda(\mu \otimes A) = \mu \otimes \lambda(A)$, $B_N[\mu \otimes A] = B_N[A]$;
+	\item $CSR[\mu \otimes A] = CSR[A]$.
+\end{itemize}
+
+Значит, $T(A)$ и $T_{1, N}(A)$ инвариантны относительно умножения матрицы на конечный скаляр, что позволяет нам без ограничения общности полагать, что $\lambda(A) = 0$.
+\end{remark}
+
+\begin{definition}
+\textit{Числом Виландта} называется следующая функция:
+\begin{equation*}
+\mathcal{W}(n) = \begin{cases}
+(n - 1)^2 + 1, &\text{ если } n > 1, \\
+0, & \text{ если } n = 1.
+\end{cases}
+\end{equation*}
+\end{definition}
+
+Оценим сверху значение функции $T_{1, N}(A)$. Для этого нам понадобятся введённые в определении \ref{girthCircCD} характеристики.
+
+\begin{theorem} [Верхние оценки $T_{1, N}(A)$, {\cite[теорема 4.1]{15WeakCSRExpantion}}]
+
+Для любой неразложимой $A \in \mathbb{R}_{\max}^{n \times n}$ имеем:
+\begin{enumerate} 
+    \item $T_{1, N}(A) \le \mathcal{W}(n)$,
+    \item $T_{1, N}(A) \le g(n - 2) + n$,
+    \item $T_{1, N}(A) \le (g - 1)(c - 1) + (g + 1) l$,
+\end{enumerate}
+где $g = g(\mathcal{G}^c(A))$, $c = c(\mathcal{G}(A))$, $l = l(\mathcal{G}(A))$.
+\end{theorem}
+
+В дальнейшем мы будем рассматривать только графы, у которых $B_N = -\infty$. Следовательно, $T(A) = T_{1, N}(A)$, и оценки для $T_{1, N}(A)$ верны и для $T(A)$.
+
+\begin{corollary} [Верхние оценки $T(A)$]
+\label{upperBounds}
+Если $A \in \mathbb{R}_{\max}^{n \times n}$ --- неразложима, и $B_N = -\infty$, то:
+\begin{enumerate} 
+    \item $T(A) \le \mathcal{W}(n)$,
+    \item $T(A) \le g(n - 2) + n$,
+    \item $T(A) \le (g - 1)(c - 1) + (g + 1) l$,
+\end{enumerate}
+где $g = g(\mathcal{G}^c(A))$, $c = c(\mathcal{G}(A))$, $l = l(\mathcal{G}(A))$.
+\end{corollary}
+
+\begin{proposition} [{\cite[лемма 2.3]{bounds}}]
+\label{findT1}
+Пусть $\lambda(A) = 0$. Тогда неравенство $A^t \ge CS^tR[A]$ справедливо тогда и только тогда, когда $t \ge T_{1,N}(A)$.
+\end{proposition}
+
+Это утверждение позволяет искать $T_{1, N}(A)$: достаточно найти наименьшее $t$, для которого верно неравенство $A^t \ge CS^tR[A]$. Тогда $T_{1, N}(A) = t$ и, если есть условие $T(A) = T_{1, N}(A)$, то и $T(A) = t$.
+
+Рассмотрим несколько примеров.
+
+Рассмотрим матрицу $A \in \mathbb{R}_{\max}^{n \times n}$, где $a_{ij} = 0$ для любых индексов $i, j$. Граф $\mathcal{G}(A)$ является полным, то есть между любыми двумя вершинами проведено ребро.
+
+\begin{example} [Полный граф]
+Граница периодичности полного графа равна $0$.
+\end{example}
+\begin{proof}
+Найдём матрицы $C, S, R$, построенные по матрице $A$. Индекс цикличности полного графа $\sigma = 1$, так как в нём есть циклы длины $1$. Следовательно, $C = R = M = A^*$, $S = A$.
+
+Так как для любого положительного $t$ верно, что $A^t = A$, то $A^* = A$ и равенство $A^*A^tA^* = A^t$ выполняется тогда и только тогда, когда $t > 0$.
+
+Следовательно, $T = 1$.
+\end{proof}
+
+Рассмотрим матрицу смежности ориентированного цикла на $n$ вершинах $A \in \mathbb{R}_{\max}^{n \times n}$, все рёбра которого имеют нулевой вес. Пронумеруем вершины так, чтобы цикл состоял из вершин $1, 2, \dots n$ в порядке обхода.
+
+\begin{example}[Ориентированный цикл]
+\label{directedCycleExample}
+Граница периодичности для одностороннего цикла на $n$ вершинах равна $0$.
+\end{example}
+\begin{proof}
+Индекс цикличности одностороннего цикла на $n$ вершинах $\sigma$ равен $n$, так как в $\mathcal{G}(A)$ есть всего один простой цикл --- длины $n$.
+
+Заметим, что $A^{\sigma} = A^n = I$ --- единичная тропическая матрица. Тогда
+\begin{equation*}
+M = (A^n)^* = I^* = I = \begin{pmatrix}
+0 & -\infty & ... & -\infty \\
+-\infty & 0 & ... & -\infty \\
+... & ... & ... & ... \\
+-\infty & -\infty & ... & 0
+\end{pmatrix}.
+\end{equation*}
+Значит, $C = R = I$, $S = A$, и для любого неотрицательного $t$ верно $CS^tR[A] = A^t$. Следовательно, $T = 0$.
+\end{proof}
+
+\begin{figure}[h]
+\centering
+\begin{minipage}[t]{0.4\textwidth}
+\centering
+\begin{tikzpicture}[shorten >=1pt, auto, node distance=3cm, ultra thick]
+\label{directedCycle}
+    \tikzstyle{node_style} = [circle, draw=black ,font=\sffamily\Large\bfseries]
+    \tikzstyle{edge_style} = [draw=black]
+    \node[node_style] (v1) at (0, 0) {1};
+    \node[node_style] (v2) at (1.5, 1.5) {2};
+    \node[node_style] (v3) at (3, 0) {3};
+    \node[node_style] (v4) at (1.5, -1.5) {4};
+   
+    \path[->, bend left] (v1) edge (v2)
+    			  (v2) edge (v3)
+    			  (v3) edge (v4)
+    			  (v4) edge (v1);
+
+\end{tikzpicture}
+\caption{Ориентированный цикл.}
+\end{minipage}
+\begin{minipage}[t]{0.4\textwidth}
+\centering
+
+\begin{tikzpicture}[shorten >=1pt, auto, node distance=3cm, ultra thick]
+    \tikzstyle{node_style} = [circle,draw=black ,font=\sffamily\Large\bfseries]
+    \tikzstyle{edge_style} = [draw=black]
+    \node[node_style] (v1) at (0, 0) {1};
+    \node[node_style] (v2) at (1.5, 1.5) {2};
+    \node[node_style] (v3) at (3, 0) {3};
+    \node[node_style] (v4) at (1.5, -1.5) {4};
+   
+    \path[<-, bend right] (v1) edge (v2)
+    			  (v2) edge (v3)
+    			  (v3) edge (v4)
+    			  (v4) edge (v1);
+	\path[->, bend left] (v1) edge (v2)
+    			  (v2) edge (v3)
+    			  (v3) edge (v4)
+    			  (v4) edge (v1);
+
+\end{tikzpicture}
+\caption{Двусторонний цикл.}
+
+\end{minipage}
+\end{figure}
+
+Рассмотрим матрицу смежности $A \in \mathbb{R}_{\max}^{n \times n}$ двустороннего цикла на $n$ вершинах. Этот граф получается добавлением обратных рёбер к графу из примера \ref{directedCycleExample}. Чтобы избежать кратных рёбер, будем работать с $n \ge 3$.
+
+\begin{example}[Двусторонний цикл]
+\begin{equation*}
+T(A) = \begin{cases}
+n - 1, &\text{если } n \text{ нечетно,}\\
+\frac{n}{2} - 1, & \text{если } n \text{ четно.}
+\end{cases}
+\end{equation*}
+\end{example}
+
+\begin{proof}
+Рассмотрим случай, когда $n$ нечётно. В этом случае цикличность критического графа $\sigma = 1$, и рассматриваемый граф является примитивным. Значит, $T(A) = exp(A)$. По \cite[теорема 3.1]{kLocalExponent} экспонента двустороннего цикла не превосходит $n - 1$. Заметим, что в графе нет цикла длины $n - 2$, так как минимальная длина цикла нечётной длины равна $n$. Из этого следует, что главная диагональ матрицы $A^{n - 2}$ состоит из $-\infty$, и, следовательно, $exp(A) \ge n - 1$. Значит, $exp(A) = n - 1$.
+
+Теперь рассмотрим случай, когда $n$ чётно. В этом случае $\sigma = 2$ и граф не примитивен. $C = R = M = (A^2)^*$, $S = A$.
+
+Так как последовательность матриц $CS^tR$ периодична с периодом $\sigma = 2$ (по утверждению \ref{periodicity}), то при $t \ge T(A)$ \begin{equation}
+\label{eqInSymmetricCycle}
+A^t = CS^tR[A] = \begin{cases}
+(A^2)^*, &\text{если } t \text{ четно,}\\
+A \otimes (A^2)^*, &\text{если } t \text{ нечетно.}\\
+\end{cases}
+\end{equation}
+
+Заметим, что \begin{align*}
+\big((A^2)^* \big)_{ij} = \begin{cases}
+0, & \text{если } i \equiv j \pmod{2},  \\
+-\infty, & \text{иначе.}
+\end{cases} \\
+\big(A \otimes (A^2)^* \big)_{ij} = \begin{cases}
+-\infty, & \text{если } i \equiv j \pmod{2},  \\
+0, & \text{иначе.}
+\end{cases}
+\end{align*}
+
+Наибольшее расстояние между вершинами с одинаковой четностью равно $\frac{n}{2}$. Значит, равенство (\ref{eqInSymmetricCycle}) при четном $t$ выполняется только при $t \ge \frac{n}{2}$.
+
+Наибольшее расстояние между вершинами с разной четностью равно $\frac{n}{2} - 1$. Значит, равенство (\ref{eqInSymmetricCycle}) при нечётном $t$ выполняется только при $t \ge \frac{n}{2} - 1$.
+
+Следовательно, $T(A) = \frac{n}{2} - 1$.
+\end{proof}
+
+\begin{proposition} [{\cite[следствие 3.97]{synchronizationAndLinearity}}]
+\label{sameWeight}
+Для фиксированных вершин $i, j$ критического подграфа $G^c(A)$ все пути от $i$ до $j$, содержащие только рёбра из критическоо подграфа $G^c(A)$, имеют одинаковые веса.
+\end{proposition}
+
+Значит, если граф совпадает со своим критическим подграфом, то для любых фиксированных вершин $i, j$ все пути от $i$ до $j$ имеют одинаковые веса.
+
+\begin{proposition} \label{onePathProposition}
+Рассмотрим примитивную матрицу $A$, у которой $\mathcal{G}(A) = \mathcal{G}^c(A)$ и $\lambda(A) = 0$. Тогда $T(A) = exp(A)$.
+\end{proposition}
+\begin{proof}
+По утверждению \ref{sameWeight}, для любых фиксированных вершин $i, j$ веса всех путей из $i$ в $j$ принимают ровно одно значение. Значит, если из $i$ в $j$ существует путь длины $t$ (что равносильно неравенству $[A^t]_{ij} > -\infty$), то $[A^t]_{ij} = [CS^tR]_{ij}$, так как элемент $[CS^tR]_{ij}$ равен весу какого-то пути из $i$ в $j$. Следовательно,
+
+\begin{equation*}
+(A^t)_{ij} = \begin{cases}(CS^tR)_{ij}, &\text{если существует путь из $i$ в $j$ длины ровно $t$,}\\
+-\infty, & \text{иначе.}\\
+\end{cases}
+\end{equation*}
+
+Покажем, что $CS^tR > -\infty$ для любого $t \ge 0$. Так как $A$ является примитивной, индекс цикличности $\mathcal{G}(A)$ равен $1$ и, по утверждению \ref{periodicity}, $CS^tR = CS^pR$ для любых $p, t \ge 0$. Зафиксируем $p = \max(T(A), exp(A))$. Тогда $CS^tR = CS^pR = A^p > -\infty$ --- что и требовалось показать.
+
+Значит, условие $A^t = CS^tR[A]$ равносильно условию $A^t > -\infty$. Следовательно, $T(A) = exp(A)$.
+\end{proof}
+
+Заметим, что обратное утверждение неверно. Рассмотрим графы, имеющие следующие матрицы смежности:
+
+\begin{minipage}[t]{0.4\textwidth}
+\centering
+$A = \begin{pmatrix}
+    -1 & -1 \\
+    -1 & -\infty
+    \end{pmatrix}$,
+\end{minipage}
+\begin{minipage}[t]{0.4\textwidth}
+\centering
+$B = \begin{pmatrix}
+    0 & 0 & 0 \\
+    0 & -\infty & 1 \\
+    0 & -\infty & -\infty
+    \end{pmatrix}$.
+\end{minipage}
+
+И в $\mathcal{G}(A)$, и в $\mathcal{G}(B)$ экспонента совпадает с $T$ (в обоих графах экспонента равна $2$), но в графе $\mathcal{G}(A)$ максимальный средний вес цикла равен $-1$, а в графе $\mathcal{G}(B)$ критический подграф не совпадает со всем графом.
+
+\begin{proposition} [{\cite[лемма 3.4.1]{combinatorialMatrixTheory}}]
+\label{cyclicityPaths}
+Пусть $\mathcal{G}$ --- сильно связный ориентированный граф на $n$ вершинах, $\sigma$ --- его индекс цикличности. Тогда
+\begin{itemize}
+\item Для фиксированной пары вершин $(u, v)$ длины всех путей от $u$ до $v$ совпадают по модулю~$\sigma$.
+\item Множество вершин $V$ графа $\mathcal{G}$ разбивается на $\sigma$ непустых непересекающихся классов $V_1, \dots, V_{\sigma}$ так, что каждое ребро графа $\mathcal{G}$ начинается в $V_i$ и кончается в $V_{i + 1}$ для некоторого $1 \le i \le \sigma$ (здесь $V_{\sigma + 1} = V_1$).
+\item Для вершин $x_i \in V_i$ и $x_j \in V_j$ длина любого пути от $x_i$ до $x_j$ сравнима с $j - i$ по модулю $\sigma$.
+\end{itemize}
+\end{proposition}
+
+Будем считать две вершины эквивалентными, если они лежат в одном классе. Тогда имеем отношение эквивалентности на множестве вершин графа, где классы эквивалентности --- это множества $V_1, \dots, V_{\sigma}$.
+
+\begin{definition}
+Множества $V_1, \dots, V_{\sigma}$ называются циклическими классами.
+\end{definition}
+
+\begin{theorem}
+\label{homothetyGraph}
+Пусть $\mathcal{G}$ --- примитивный граф. Обозначим через $\mathcal{G}_{\sigma} = \mathcal{G}(A)$ граф, получающийся из $\mathcal{G}$ разделением каждого ребра на $\sigma$ рёбер. Тогда
+\begin{equation*}
+T(A) = (exp(\mathcal{G}) + 1)\sigma - 1.
+\end{equation*}
+\end{theorem}
+
+\begin{figure}[h]
+\centering
+\begin{minipage}[t]{0.4\textwidth}
+\centering
+\begin{tikzpicture}[shorten >=1pt, auto, node distance=3cm, ultra thick]
+\label{directedCycle}
+    \tikzstyle{node_style} = [circle, draw=black ,font=\sffamily\Large\bfseries]
+    \tikzstyle{edge_style} = [draw=black]
+    \node[node_style] (v1) at (0, 0) {1};
+    \node[node_style] (v2) at (5, 0) {2};
+   
+    \path[->] (v1) edge node[above] {\textbf{0}} (v2);
+
+\end{tikzpicture}
+\caption{Ребро до разделения.}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+\centering
+
+\begin{tikzpicture}[shorten >=1pt, auto, node distance=3cm, ultra thick]
+    \tikzstyle{node_style} = [circle,draw=black ,font=\sffamily\Large\bfseries]
+    \tikzstyle{edge_style} = [draw=black]
+    \node[node_style] (v1) at (0, 0) {1};
+    \node[node_style] (v3) at (2, 0) {3};
+    \node[node_style] (v4) at (4, 0) {4};
+    \node[node_style] (v2) at (6, 0) {2};
+   
+    \path[->] (v1) edge node[above] {\textbf{0}} (v3)
+    			  (v3) edge node[above] {\textbf{0}} (v4)
+    			  (v4) edge node[above] {\textbf{0}} (v2);
+
+\end{tikzpicture}
+\caption{Ребро после разделения на $3$ ребра.}
+
+\end{minipage}
+\end{figure}
+
+\begin{proof}
+Заметим, что индекс цикличности графа $\mathcal{G}_\sigma$ равен $\sigma$.
+
+Назовём вершину графа $\mathcal{G}_\sigma$ \textit{начальной}, если она была в графе $\mathcal{G}$ и не была добавлена при разделении рёбер. Тогда все начальные вершины образуют один циклический класс.
+
+Заметим, что, по утверждениям \ref{entriesInCSR} и \ref{findT1}, неравенство $t \ge T(A)$ эквивалентно следующему утверждению: если для произвольных вершин $u, v$ между ними есть путь длины,  сравнимой с $t$ по модулю $\sigma$, то между ними есть и путь длины ровно $t$.
+
+Покажем, что $T(A) > (exp(\mathcal{G}) + 1)\sigma - 2$. Для этого предъявим две вершины $u_0, v_0$ графа $\mathcal{G}_\sigma$ таких, что существует путь из $u_0$ к $v_0$ длины, сравнимой с $(-2)$ по модулю $\sigma$, но нет пути длины $(exp(\mathcal{G}) + 1)\sigma - 2$.
+
+В силу примитивности $\mathcal{G}$, в нём есть две вершины, между которыми нет пути длины $exp(\mathcal{G}) - 1$. Значит, в $\mathcal{G}_\sigma$ между соответствующими начальными вершинами нет пути длины $(exp(\mathcal{G}) - 1)\sigma$. Обозначим эти вершины через $u$ и $v$.
+
+Обозначим через $u_0$ такую вершину, что расстояние от $u_0$ до $u$ равно $\sigma - 1$, а через $v_0$ --- такую вершину, что расстояние от $v$ до $v_0$ равно $\sigma - 1$. Обе новые вершины существуют, так как все вершины в $\mathcal{G}_{\sigma}$ лежат хотя бы в одном цикле. Тогда между вершинами $u_0$ и $v_0$ не будет пути длины $(exp(\mathcal{G})- 1)\sigma + 2(\sigma - 1) = (exp(\mathcal{G}) + 1)\sigma - 2$. Но между $u_0$ и $v_0$ существует путь, сравнимый с $-2$ по модулю $\sigma$ длины. Значит, $T(A) \ge (exp(\mathcal{G}) + 1)\sigma - 1$.
+
+Докажем обратное неравенство. Покажем, что если между вершинами $u$ и $v$ графа $\mathcal{G}_\sigma$ есть путь длины, сравнимой с $(-1)$ по модулю $\sigma$, то есть и путь длины $(exp(\mathcal{G}) + 1)\sigma - 1$. Обозначим через $u_0$ начальную вершину с минимальным расстоянием от вершины $u$ до $u_0$, а через $v_0$ --- начальную вершину с минимальным расстоянием от $v_0$ до вершины $v$.
+
+Заметим, что сумма расстояний от вершины $u$ до $u_0$ и от $v_0$ до вершины $v$ не превосходит $2\sigma - 2$ и сравнима с $(-1)$ по модулю $\sigma$. Значит, эта сумма равна $\sigma - 1$. Следовательно, существование пути от вершины $u$ до вершины $v$ длины $(exp(\mathcal{G}) + 1)\sigma - 1$ равносильно существованию пути от $u_0$ до $v_0$ длины $exp(\mathcal{G}) \cdot \sigma$. Но такой путь существует по определению $exp(\mathcal{G})$.
+
+Значит, $T(A) \le (exp(\mathcal{G}) + 1)\sigma - 1$, и утверждение доказано.
+\end{proof}
+
+\section{Граница периодичности для букета циклов}
+\label{wedge}
+\begin{definition} Назовем \textit{букетом циклов} граф, состоящий из нескольких пересекающихся по одной вершине ориентированных циклов.
+\end{definition}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[shorten >=1pt, auto, node distance=3cm, ultra thick]
+    \tikzstyle{node_style} = [circle,draw=black ,font=\sffamily\Large\bfseries]
+    \tikzstyle{edge_style} = [draw=black]
+    \node[node_style] (v1) at (0, 0) {1};
+    \node[node_style] (v2) at (2.5, 1.5) {2};
+    \node[node_style] (v3) at (2.5, -1.5) {3};
+    \node[node_style] (v4) at (-1.5, 1.5) {4};
+    \node[node_style] (v5) at (-3, 0) {5};
+    \node[node_style] (v6) at (-1.5, -1.5) {6};
+   
+    \path[->, bend left] (v1) edge (v2)
+    			  (v2) edge (v3)
+    			  (v3) edge (v1);
+	\path[->, bend right] 
+    			  (v1) edge (v4)
+    			  (v4) edge (v5)
+    			  (v5) edge (v6)
+    			  (v6) edge (v1);
+\end{tikzpicture}
+\caption{Букет циклов длины $3$ и $4$.}
+\end{figure}
+
+Будем рассматривать букеты, все рёбра в которых имеют вес $0$. Тогда, если $A$ --- матрица смежности букета циклов, то $\lambda(A) = 0$, $\mathcal{G}^c(A) = \mathcal{G}(A)$ и $T(A) = T_{1, N}(A)$.
+
+\begin{definition}
+Букет циклов длины $a_1\sigma, a_2\sigma, \dots, a_n\sigma$, где числа $a_1, \dots, a_n$ взаимно просты в совокупности, $a_1\le a_2 \le \dots \le a_n$, назовем \textit{$(a_1, \dots, a_n; \sigma)$-букетом}.
+
+Границу периодичности для такого графа, будем обозначать через $T(a_1, \dots, a_n; \sigma)$.
+\end{definition}
+
+Заметим, что индекс цикличности такого букета равен $\sigma$, а число вершин в нём равно $N = \sum\limits_{\substack{i=1}}^n a_i\sigma - n + 1$. Пусть вершина, в которой пересекаются все циклы, имеет номер $1$. Пронумеруем вершины в порядке следующего обхода: начнем в вершине $1$, далее пройдём по первому циклу, затем --- по второму, и так далее, до цикла с номером $n$ (не изменяя номер у вершины~$1$).
+
+\begin{theorem}
+\label{everyKFormula}
+Рассмотрим взаимно простые в совокупности числа $a_1 \le \dots \le ~a_n$. Тогда
+\begin{equation*}
+T(a_1, \dots, a_n; \sigma) = (T(a_1, \dots, a_n; 1) + 1)\sigma - 1.
+\end{equation*}
+\end{theorem}
+\begin{proof}
+Достаточно применить теорему \ref{homothetyGraph}.
+\end{proof}
+
+Таким образом, при расчёте границы периодичности для произвольного графа-букета достаточно посчитать искомую границу периодичности при $\sigma = 1$, а затем получить ответ по формуле из теоремы \ref{everyKFormula}. 
+
+\begin{remark}
+Рассмотрим взаимно простые в совокупности числа $a_1 \le \dots \le ~a_n$. Тогда при $\sigma = 1$ $(a_1, \dots, a_n; 1)$-букет является примитивным.
+\end{remark}
+
+\begin{remark}
+\label{rmrk:expAndT}
+По утверждению \ref{onePathProposition}, граница периодичности данного графа совпадает с его экспонентой.
+\end{remark}
+
+Введём вспомогательную функцию $P$:
+
+\begin{definition}
+Для взаимно простых в совокупности натуральных чисел $a_1 \le \dots \le~a_n$ обозначим через $P(a_1, \dots, a_n)$ минимальное целое неотрицательное число, удовлетворяющее следующему свойству: любое $p \ge P(a_1, \dots, a_n)$ выражается в виде линейной комбинации чисел $a_1, \dots, a_n$ с целыми неотрицательными коэффициентами $\lambda_1, \dots, \lambda_n$, то есть
+\begin{equation}
+\label{LK}
+p = \lambda_1 a_1 + \dots + \lambda_n a_n.
+\end{equation}
+
+Число, выражающееся в виде линейной комбинации чисел $a_1, \dots, a_n$ с целыми неотрицательными коэффициентами, назовём \textit{выразимым}.
+
+\textit{Числом слагаемых} в линейной комбинации вида (\ref{LK}) назовём число положительных коэффициентов $\lambda_i$.
+
+Назовём линейную комбинацию с неотрицательными коэффициентами \textit{неотрицательной линейной комбинацией}.
+\end{definition}
+
+\begin{proposition}[Свойства функции $P$]{\ }
+\label{propertiesOfP}
+\begin{enumerate}
+    \item Если $a_1 = 1$, то $P(1, \dots, a_n) = 0$.
+    \item $P(a_1, \dots, a_n) \le P(a_{i_1} , a_{i_2}, \dots, a_{i_k})$, где $1 \le i_1 < i_2 < \dots < i_k \le n$ --- возрастающий набор индексов.
+    \item $P(a_1, \dots, a_n) = P(b_1, \dots, b_m)$, где набор $b_1, \dots, b_m$ получается из набора $a_1, \dots, a_n$ удалением повторяющихся элементов.
+    \item Если $a_j$ делится на $a_i$, то $P(a_1, \dots, a_n) = P(a_1, \dots, a_{j - 1}, a_{j + 1}, \dots, a_n)$.
+    
+    \item Если $a_j$ представляется в виде неотрицательной линейной комбинации меньших элементов, то $P(a_1, \dots, a_n) = P(a_1, \dots, a_{j - 1}, a_{j + 1}, \dots, a_n)$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+1) Действительно, если $a_1 = 1$, то любое неотрицательное число $k$ выражается как $1 \cdot k$. Следовательно, $P = 0$.
+
+2) Свойство следует из следующего факта: сумма $\lambda_{i_1} a_{i_1} + \dots + \lambda_{i_k} a_{i_k}$ является частным случаем суммы $\lambda_1 a_1 + \dots + \lambda_n a_n$.
+
+3) При приведении подобных членов в сумме $\lambda_1 a_1 + \dots + \lambda_n a_n$ получается сумма $\mu_1 b_1~+~\dots + \mu_m b_m$. С другой стороны, сумма $\mu_1 b_1~+~\dots + \mu_m b_m$ является суммой вида $\lambda_1 a_1 + \dots + \lambda_n a_n$.
+
+4) Очевидно, что любая сумма $\lambda_1 a_1 + \dots + \lambda_{j - 1} a_{j - 1} + \lambda_{j + 1} a_{j + 1} + \dots + \lambda_n a_n$ является суммой вида $\lambda_1 a_1 + \dots + \lambda_n a_n$, где $\lambda_j = 0$. С другой стороны, заменив $a_j$ на $a_i \cdot \frac{a_j}{a_i}$, можно избавиться от слагаемого $\lambda_j a_j$ в сумме $\lambda_1 a_1 + \dots + \lambda_n a_n$, что доказывает утверждение.
+
+5) Доказательство этого свойства аналогично предыдущему.
+\end{proof}
+
+\begin{theorem}
+\label{thTP}
+Рассмотрим взаимно простые в совокупности числа $a_1 \le \dots \le a_n$. Тогда
+\begin{equation*}
+T(a_1, \dots, a_n; 1) = P(a_1, \dots, a_n) + 2a_n - 2.
+\end{equation*}
+\end{theorem}
+\begin{proof}
+Рассматриваемый букет примитивен, так как $\sigma = 1$. Значит, граница периодичности совпадает с экспонентой. Найдём экспоненту $(a_1, \dots, a_n; 1)$-букета.
+
+Разберём случай $a_n = 1$. Тогда $P(a_1, \dots, a_n) + 2a_n - 2 = 0$, что совпадает с экспонентой $(a_1, \dots, a_n; 1)$-букета.
+
+Далее считаем, что $a_n > 1$.
+
+Покажем, что при $t = P(a_1, \dots, a_n) + 2a_n - 3$ существуют две вершины, между которыми нет пути длины $t$. Пусть $u_0$ --- следующая за вершиной $1$ в цикле длины $a_n$ вершина, а $v_0$ --- идущая перед вершиной $1$ в том же цикле.
+
+Заметим, что путь длины $t$ из $u_0$ в $v_0$ проходит через вершину $1$, так как единственный простой путь из $u_0$ в $v_0$ имеет длину $a_n - 2 < t$, так как $a_n > 1$. Значит, путь длины $t$ из $u_0$ в $v_0$ состоит из трёх частей: первая --- от $u_0$ до $1$, вторая --- конкатенация циклов, третья --- от $1$ до $v_0$. Длина первой и третьей частей равна $a_n - 1$, а длина второй части --- выразима. 
+
+Значит, длина второй части равна $t - 2a_n + 2 = P(a_1, \dots, a_n) - 1$ --- невыразима по определению $P$. Следовательно, пути длины $t$ от $u_0$ до $v_0$ не существует, и $T(a_1, \dots, a_n; 1) \ge P(a_1, \dots, a_n) + 2a_n - 2$.
+
+Покажем, что экспонента рассматриваемого графа равна $t = P(a_1, \dots, a_n) + 2a_n - 2$. Зафиксируем произвольные вершины $u, v$. Обозначим через $\hat{u}$ расстояние от $u$ до вершины $1$, а через $\hat{v}$ --- расстояние от вершины $1$ до $v$. Тогда существование пути длины $t$ из $u$ в $v$ равносильно выразимости числа $t - \hat{u} - \hat{v}$. Заметим, что максимальное значение $\hat{u} + \hat{v}$ равно $2a_n - 2$ и достигается на описанных выше вершинах $u_0$, $v_0$. Тогда $t - \hat{u} - \hat{v} \ge P(a_1, \dots, a_n)$, и, следовательно, $t - \hat{u} - \hat{v}$ всегда выразимо. Значит, между произвольными вершинами графа существует путь длины $P(a_1, \dots, a_n) + 2a_n - 2$.
+
+Следовательно, $T(a_1, \dots, a_n; 1) = P(a_1, \dots, a_n) + 2a_n - 2$.
+\end{proof}
+
+\begin{corollary}[Определённость функции $P$]
+Функция $P(a_1, \dots, a_n)$ определена для любых взаимно простых в совокупности чисел $a_1 \le \dots \le a_n$.
+\end{corollary}
+\begin{proof}
+Рассмотрим $(a_1, \dots, a_n; 1)$-букет. По замечанию \ref{rmrk:expAndT} этот граф имеет экспоненту, которая совпадает с границей периодичности для данного графа-букета. По формуле из теоремы \ref{thTP} имеем $P(a_1, \dots, a_n) = T(a_1, \dots, a_n; 1) - 2a_n + 2$.
+\end{proof}
+
+Оценим значение функции $P$ с помощью верхних оценок, полученных для графа-букета.
+
+\begin{proposition}
+\label{upperBoundsP}
+Рассмотрим взаимно простые в совокупности числа $a_1 \le \dots \le a_n$. Тогда функция $P(a_1, \dots, a_n)$ оценивается сверху следующими функциями:
+\begin{enumerate}
+\item $\mathcal{W}(N) - 2a_n + 2$,
+\item $(a_1 + 1)N - 2a_1 - 2a_n + 2$,
+\item $(a_1 - 1)(a_n - 1) + a_1(2a_n - 2)$,
+\end{enumerate}
+где $N = \sum\limits_{\substack{i=1}}^n a_i - n + 1$ --- число вершин в $(a_1, \dots, a_n; 1)$-букете.
+\end{proposition}
+\begin{proof}
+Обхват $(a_1, \dots, a_n)$-букета равен $a_1$, его окружность равна $a_n$, а её диаметр не превосходит $2a_n - 2$.
+
+Для доказательства утверждения достаточно оценить границу периодичности рассматриваемого графа по следствию \ref{upperBounds} и применить теорему \ref{thTP}.
+\end{proof}
+
+Рассмотрим несколько частных случаев аргументов функции $P$ и найдём для них точную формулу для $P$.
+
+\begin{proposition}
+Если $a$ и $b$ взаимно просты и $a < b$, то $P(a, b) = (a - 1)(b - 1)$.
+\end{proposition}
+\begin{proof}
+Покажем, что $ab - a - b \ne ma + nb$ ни для каких целых неотрицательных коэффициентов $m, n$.
+
+Предположим противное. Тогда \begin{equation*}
+ab - a - b = ma + nb \quad \Longleftrightarrow \quad ab = (m + 1)a + (n + 1) b
+\end{equation*}
+В силу взаимной простоты $a$ и $b$ получим, что $n + 1 \ \vdots \ a$, и $m + 1 \ \vdots \ b$. Тогда, в силу того, что $m, n \ge 0$, имеем $2$ случая:\begin{align*}
+     \begin{cases}
+        n + 1 = a\\
+        m + 1 = 0
+    \end{cases}
+    &
+    \begin{cases}
+        n + 1 = 0\\
+        m + 1 = b.
+    \end{cases}
+\end{align*}
+В обоих случаях получаем противоречие. Следовательно, $P(a, b) \ge (a - 1)(b - 1)$.
+
+Теперь покажем, что $P(a, b) \le (a - 1)(b - 1)$. Для любого $p \ge (a - 1)(b - 1)$ решим уравнение: \begin{equation*}
+ma + nb = p
+\end{equation*}
+Так как $a$ и $b$ взаимно просты, числа из набора $0, b, 2b, \dots, (a - 1)b$ дают все $a$ остатков по модулю $a$. Значит, существует единственное $0 \le n \le a - 1$, что $nb \equiv p \pmod a$, причём $p - nb \ge 0$, так как $p - nb \ \vdots \ a$ и
+\begin{equation*}
+p - nb \ge (a - 1)(b - 1) - (a - 1)b = -a + 1 > -a \Longrightarrow p - nb \ge 0.
+\end{equation*}
+Значит, $m = \frac{p - nb}{a} \ge 0$.
+
+Таким образом, нами были найдены целые $m \ge 0$, $n \ge 0$. Следовательно, $P(a, b) = (a - 1)(b - 1)$.
+\end{proof}
+
+\begin{proposition}
+Если числа $2, a, b$ взаимно просты в совокупности и $2 \le a \le b$, то \begin{equation*}
+P(2, a, b) = \begin{cases}
+P(2, b) = b - 1, &\text{если $a$ чётно,} \\
+P(2, a) = a - 1,&\text{иначе.}
+\end{cases}
+\end{equation*}
+
+\end{proposition}
+\begin{proof}
+Первый случай следует из свойства 4 утверждения \ref{propertiesOfP}.
+
+Разберём второй случай: $a$ нечётно. Неравенство $P(2, a, b) \le P(2, a)$ следует из свойства $2$ утверждения \ref{propertiesOfP}. Докажем обратное неравенство: необходимо показать, что с помощью слагаемых $2, a, b$ невозможно получить сумму $a - 2$. Действительно, из трёх слагаемых можно использовать только одно: $2$. Но $a - 2$ нечётно --- противоречие. Следовательно, $P(2, a, b) = P(2, a)$.
+\end{proof}
+
+Будем отдельно вычислять функцию $P$ для каждого остатка по модулю $a_1$. Для этого введём следующую функцию $M : \{ 0, 1, \dots, a_1 - 1\} \rightarrow \mathbb{R}$:
+
+\begin{definition}
+\label{MDefinition}
+$M(i)$ --- это минимальное выразимое число, сравнимое с $i$ по модулю~$a_1$.
+\end{definition}
+
+Впоследствии, при описании алгоритма, вычисляющего $P$, удобно будет представлять $M$ в виде массива, поэтому значение функции $M$ на элементе $i$ будем обозначать с помощью квадратных скобок --- через $M[i]$.
+
+Заметим, что $M[0] = 0$ и что $M[i] \equiv i \pmod {a_1}$.
+
+\begin{proposition}
+\label{algorithm:lemma1}
+Если $a_1 \le \dots \le a_n$ --- взаимно простые в совокупности числа, то \begin{equation*}
+P(a_1, \dots, a_n) = \max\limits_{0 \le i < a_1} M[i] - a_1 + 1.
+\end{equation*}
+\end{proposition}
+\begin{proof}
+Пусть $\max\limits_{0 \le i < a_1} M[i] = M[k]$.
+
+Выразимость $M[k] - a_1$ вела бы к противоречию с определением массива $M$, так как $M[k] - a_1 \equiv M[k] \pmod {a_1}$. Значит, $P(a_1, \dots, a_n) \ge \max\limits_{0 \le i < a_1} M[i] - a_1 + 1$.
+
+Заметим, что если произвольное $x$ выразимо, то и число $x + a_1$ выразимо. Из этого следует, что любое число, сравнимое с $i$ по модулю $a_1$ и не меньшее $M[i]$, выразимо. Значит, все числа, начиная с $M[k] - a_1 + 1$, выразимы, так как иначе $M[k]$ не было бы максимальным числом в массиве $M$.
+
+Следовательно, $P(a_1, \dots, a_n) = \max\limits_{0 \le i < a_1} M[i] - a_1 + 1$.
+\end{proof}
+
+Используя массив $M$, можно легко вычислить $P(3, a, b)$ и $P(4, a, b)$. Здесь и далее через $x \ mod \ y$ будем обозначать  остаток от деления $x$ на $y$.
+
+\begin{proposition}
+Пусть числа $3, a, b$ взаимно просты в совокупности и $3 \le a \le b$.
+\begin{enumerate}
+\item Если $a \ \vdots \ 3$, то $P(3, a, b) = P(3, b) = 2b - 2$.
+\item Если $a \centernot\vdots 3$ и $a \equiv b \pmod 3$, то $P(3, a, b) = P(3, a) = 2a - 2$.
+\item Если $a \centernot\vdots 3$ и $a \not \equiv b \pmod 3$, то $P(3, a, b) = \min(2a, b) - 2$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+Первый и второй случаи следуют из свойств 4 и 5 утверждения \ref{propertiesOfP} соответственно.
+
+В последнем случае $M[a \ mod \ 3] = a$, и весь ответ зависит от величины $M[3 - (a \ mod \ 3)]$, которая может принимать два значения: $2a$ и $b$. Значит, $M[3 - (a \ mod \ 3)] = \min(2a, b)$, и $P(3, a, b) = min(2a, b) - 2$.
+\end{proof}
+
+\begin{proposition}
+Пусть числа $4, a, b$ взаимно просты в совокупности и $4 \le a \le b$. Тогда, если $b \ge P(4, a)$ и $a \centernot \vdots 2$, то $P(4, a, b) = P(4, a)$, а иначе $P(4, a, b)$ выражается следующим образом, в зависимости от остатков при делении $a$ и $b$ на $4$:
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c| } 
+ \hline
+ \diagbox{$a \ mod \ 4$}{$b \ mod \ 4$} & 0 & 1 & 2 & 3 \\ 
+ \hline
+ 0 & --- & $P(4, b)$ & $P(4, b)$ & $P(4, b)$ \\ 
+  \hline
+ 1 & $P(4, a)$ & $P(4, a)$ & $a + \min(2a, b) - 3$ & $\max(2a, b) - 3$ \\ 
+ \hline
+ 2 & $P(4, a)$ & $a + b - 3$ & --- & $a + b - 3$ \\ 
+ \hline
+  3 & $P(4, a)$ & $\max(2a, b) - 3$ & $a + \min(2a, b) - 3$ & $P(4, a)$ \\ 
+ \hline
+\end{tabular}
+\end{center}
+\end{proposition}
+\begin{proof}
+Случаи $a \equiv 0 \pmod 4$ и $b \equiv 0 \pmod 4$ следуют из свойства 4 утверждения \ref{propertiesOfP}, а случаи $0 \centernot \equiv a \equiv b \pmod 4$ и $b \ge P(4, a)$ --- из свойства 5 того же утверждения.
+
+Во всех остальных случаях посчитаем массив $M$, и по утверждению \ref{algorithm:lemma1} найдём ответ.
+
+Разберём случай $a \equiv 2 \pmod 4, b \centernot\vdots 2$. Заметим, что $M[2] = a$, $M[b \ mod \ 4] = b$, $M[4~-~(b \ mod \ 4)] = a + b$. Максимум этого массива равен $a + b$, поэтому ответом является $a + b - 3$.
+
+Разберём случай $a \centernot\vdots 2, b \equiv 2 \pmod 4$. Тогда $M[a \ mod \ 4] = a$. На место $M[2]$ есть два кандидата: $2a$ и $b$. Значит, $M[2] = \min(2a, b)$. Далее, для $M[4 - (a \ mod \ 4)]$ имеем два варианта: $3a$ и $a + b$. Следовательно, $M[4 - (a \ mod \ 4)] = \min(3a, a + b)$. Таким образом, ответ равен $a + \min(2a, b) - 3$.
+
+Разберём последний случай: $a, b \centernot \vdots 2, a + b \ \vdots \ 4, b < 3a - 3$. Тогда $M[a \ mod \ 4] = a$, $M[b \ mod \ 4] = b$ и $M[2] = 2a$. Значит, ответ равен $\max(2a, b) - 3$.
+\end{proof}
+
+\section{Алгоритм вычисления функции $P$}
+\label{algorithmSection}
+
+При описании следующего алгоритма мы будем работать с другой версией тропического полукольца --- $\mathbb{R}_{\min}$.
+
+\begin{definition}
+Обозначим через $\mathbb{R}_{min}$ множество $\mathbb{R} \; \cup \; \{ \infty\}$ с операциями сложения $\oplus$ и умножения $\otimes$:
+\begin{align*}
+            a \oplus b &= \min(a, b)\\
+            a \otimes b &= a + b.
+        \end{align*}
+\end{definition}
+
+Приведём алгоритм, вычисляющий функцию $P$. На вход ему подаётся  число $n$ и взаимно простые в совокупности числа $a_1, \dots, a_n$, упорядоченные по неубыванию.
+
+Алгоритм вычисляет массив $M$, а затем, по формуле из леммы \ref{algorithm:lemma1}, вычисляет ответ на поставленную задачу. 
+
+Будем перебирать неотрицательные линейные комбинации и хранить в $M[i]$ минимальное найденное выразимое число, сравнимое с $i$ по модулю $a_1$. Если не было найдено ни одного такого числа, то положим $M[i] = \infty$.
+
+Именно здесь заключается смысл использования полукольца $\mathbb{R}_{\min}$ --- оно позволяет одновременно хранить информацию и о наличии выразимого числа соответствующего остатка (в этом случае хранится само число), и об отсутствии такового (в этом случае хранится $\infty$).
+
+Таким образом, в начале работы алгоритма в любой ячейке массива $M$ лежит значение $\infty$, так как ни одна неотрицательная линейная комбинация ещё не была рассмотрена.
+
+Ячейка $M[i]$ обновляется, если было найдено некоторое выразимое $p$, сравнимое с $i$ по модулю $a_1$ и меньшее $M[i]$. Тогда необходимо перезаписать в ячейку $M[i]$ значение $p$. Заметим, что если $M[i] = \infty$ и было найдено такое $p$, то значение в ячейке заведомо перезапишется, так как $\infty$ больше любого конечного числа.
+
+Перебор начинается с рассмотрения всех неотрицательных линейных комбинаций с одним слагаемым. Затем будем перебирать неотрицательные линейные комбинации, на каждом шаге увеличивая максимальное число слагаемых вдвое. Таким образом, необходимо сделать $\lceil log_2n \rceil + 1$ итераций, где $\lceil x \rceil$ --- это округление числа $x$ вверх.
+
+На практике совершенно необязательно реализовывать полукольцо $\mathbb{R}_{\min}$, достаточно заполнить массив $M$ числами, заведомо превосходящими ответ (см. \ref{upperBoundsP}).
+
+\begin{algorithm} { \ }
+\label{algorithm}
+\begin{enumerate}
+	\item Создадим массив $M$ длины $a_1$, содержащий числа из $\mathbb{R}_{\min}$. Запишем во все ячейки значения $\infty$.
+	
+	\item На нулевой итерации переберём все неотрицательные линейные комбинации с одним слагаемым. Для этого для каждого $a_i$ и для каждого множителя $0 \le k < a_1$ проверим, можем ли мы улучшить ответ: сравним $a_i^{\otimes k} = a_i \cdot k$ с $M[(a_i \cdot k) \ mod \ a_1]$, и, если в массиве записано большее число, улучшим ответ: запишем в ячейку $(a_i~\cdot~k) \ mod \ a_1$ значение $a_i^{\otimes k} = a_i \cdot k$.
+	
+	\item На каждой следующей итерации будем перебирать все пары ячеек $M[i]$ и $M[j]$ и пытаться улучшить ответ: сравним $M[(i + j) \ mod \ a_1]$ с $M[i] \otimes M[j]$, и, если в массиве записано большее число, улучшим ответ: запишем в ячейку $(i + j) \ mod \ a_1$ значение $M[i] \otimes M[j]$.
+	
+	\item Всего необходимо сделать $\lceil log_2(n) \rceil + 1$ итераций. После этого ответ будет равен $\max\limits_{0 \le i < a_1} M[i] - a_1 + 1$.
+\end{enumerate}
+\end{algorithm}
+
+Для доказательства корректности докажем следующее утверждение.
+
+\begin{lemma}
+\label{algorithm:lemma2}
+После итерации с номером $d$ в ячейке $M[i]$ лежит минимальное число, сравнимое с $i$ по модулю $a_1$, которое может быть представлено в виде неотрицательной линейной комбинации с не более чем $2^d$ слагаемыми, или $\infty$, если такого числа не существует.
+\end{lemma}
+\begin{proof}
+Докажем утверждение по индукции.
+
+База: $d = 0$. В шаге 1 перебираются все неотрицательные линейные комбинации вида $a_j \cdot k$, где $0 \le k < a_1$. Рассмотрим неотрицательную линейную комбинацию, которую мы не перебрали: $a_i \cdot m$. Так как мы не перебрали эту комбинацию, то $m \ge a_1$. Но тогда $a_i \cdot m \equiv a_i \cdot (m \ mod \ a_1) \pmod {a_1}$ и $a_i \cdot m > a_i \cdot (m \ mod \ a_1) \ge 0$ --- эта неотрицательная линейная комбинация не может улучшить ответ. Значит, база верна.
+
+Докажем переход. Предположим, утверждение доказано для $d - 1$, докажем его для $d$. Обозначим массив $M$ в состоянии до итерации с номером $d$ через $M'$.
+
+Рассмотрим произвольную ячейку $M[i]$, в которой записано число, меньшее $\infty$. Тогда $M[i]$ было получено либо на нулевой итерации, либо в виде суммы двух ячеек массива $M'$. В обоих случаях существуют два индекса $j$ и $k$ такие, что $i = (j + k) \ mod \ a_1$ и $M[i] = M'[j] + M'[k]$ (если $M[i]$ получено на нулевой итерации, то можно считать, что $j = 0$). По предположению индукции в каждой ячейке массива $M'$ лежит число, которое может быть представлено в виде неотрицательной линейной комбинации с не более чем $2^{d - 1}$ слагаемыми. Значит, в $M[i]$ лежит число, представимое в виде неотрицательной линейной комбинации с не более чем $2^d$ слагаемыми. По предположению индукции $M[i] = M'[j] + M'[k] \equiv j + k \equiv i \pmod{a_1}$.
+
+Осталось доказать минимальность $M[i]$. Предположим противное: пусть существует число $x < M[i]$, сравнимое с $i$ по модулю $a_1$ и представимое в виде неотрицательной линейной комбинации с не более чем $2^d$ слагаемыми. Тогда эту комбинацию можно разбить на две меньших, в каждой из которых будет не более $2^{d - 1}$ слагаемых. Обозначим суммы этих неотрицательных линейных комбинаций через $S_1$ и $S_2$. Пусть $S_1 \equiv j \pmod{a_1}$, а $S_2 \equiv k \pmod{a_1}$. Заметим, что $M[i] \le M'[j] + M'[k]$, так как алгоритм перебирает все возможные пары $(i, k)$, и выбирает вариант с наименьшей суммой.
+
+Тогда $S_1 + S_2 = x < M[i] \le M'[j] + M'[k]$ и, следовательно, или $S_1 < M'[j]$, или $S_2 < M'[k]$. В обоих случаях имеем противоречие с предположением индукции. Значит, предположение индукции верно и для $d$, что и требовалось доказать.
+\end{proof}
+
+\begin{proposition}
+Алгоритм \ref{algorithm} корректен. Время его работы составляет $O(n \cdot a_1 + a_1^2 \cdot log \ n)$. Объем затраченной памяти составляет $O(a_1)$.
+\end{proposition}
+\begin{proof}
+Докажем корректность. По лемме \ref{algorithm:lemma2} после итерации с номером $d$ в ячейке $M[i]$ лежит минимальное число, представимое в виде неотрицательной линейной комбинации с не более чем $2^d$ слагаемыми. Следовательно, после итерации с номером $\lceil log_2(n) \rceil$ в ячейке $M[i]$ лежит минимальное число, представимое в виде неотрицательной линейной комбинации с не более чем $n$ слагаемыми, то есть массив $M$ будет полностью посчитан.
+
+Во время работы алгоритма каждая ячейка массива $M$ изменит своё значение хотя бы раз: это следует из определённости функции $P$, и после последней итерации в массиве $M$ не останется $\infty$. Значит, массив $M$ посчитан правильно. Далее корректность ответа может быть получена по лемме \ref{algorithm:lemma1}.
+
+Докажем асимптотики. Первый шаг работает за $O(a_1)$, второй --- за $O(a_1 \cdot n)$ (надо перебрать все $a_i$, которых $n$ штук) и все $0 \le k < a_1$). Третий работает за $O(a_1^2 \cdot log \ n)$, так как всего $O(log \ n)$ итераций, в каждой из которых надо перебрать пары $(i, j)$, где $0 \le i, j \le a_1$. Четвертый --- за $O(a_1)$. Итоговая сложность алгоритма: $O(n \cdot a_1 + a_1^2 \cdot log \ n)$.
+
+Память тратится только на массив $M$ длины $a_1$. Значит, алгоритм требует $O(a_1)$ памяти.
+\end{proof}
+
+\begin{remark}
+В ходе проведённых экспериментальных запусков на компьютере при $n = 100, a_1 = 100$ алгоритм ни разу не показывал время, большее $0.2$ с. При $n~=~1000, a_1 =~1000$ алгоритм работал не дольше $0.3$ с. При $n = 10000, a_1 = 10000$ алгоритм работал существенно медленнее: в районе $40$ с.
+\end{remark}
+
+\section{Граница периодичности для графа-ромашки}
+
+\begin{definition}
+Назовём $(k_1, \dots, k_n)$\textit{-ромашкой} ориентированный цикл $(1, 2, \dots, n, 1)$ длины $n$, к $i$-ой вершине которого "прикреплён" цикл длины $k_in$. Назовём цикл $(1, 2, \dots, n, 1)$ \textit{главным циклом}, а цикл, не являющийся главным, в котором лежит вершина $i$-ого главного цикла, \textit{$i$-ым неглавным циклом}.
+\end{definition}
+
+\begin{figure}[h]
+\label{chamomileFig}
+\centering
+\begin{tikzpicture}[shorten >=1pt, auto, node distance=3cm, ultra thick]
+    \tikzstyle{node_style} = [circle,draw=black ,font=\sffamily\Large\bfseries]
+    \tikzstyle{edge_style} = [draw=black]
+    \node[node_style] (v1) at (1, 1) {1};
+    \node[node_style] (v2) at (1, -1) {2};
+    \node[node_style] (v3) at (-1, 0) {3};
+    \node[node_style] (v4) at (2, 2.6) {4};
+    \node[node_style] (v5) at (3, 1) {5};
+    \node[node_style] (v6) at (3, -1) {6};
+    \node[node_style] (v7) at (4, -3) {7};
+    \node[node_style] (v8) at (3, -5) {8};
+    \node[node_style] (v9) at (1, -5) {9};
+    \node[node_style] (v10) at (0, -3) {10};
+    \node[node_style] (v11) at (-2, 2) {11};
+    \node[node_style] (v12) at (-4, 2) {12};
+    \node[node_style] (v13) at (-5, 0) {13};
+    \node[node_style] (v14) at (-4, -2) {14};
+    \node[node_style] (v15) at (-2, -2) {15};
+    
+   
+    \path[->, bend left] (v1) edge (v2)
+    			  			     edge (v4)
+	        	      	    (v2) edge (v3)
+    			  	       	     edge (v6)
+    			      	    (v3) edge (v1)
+    			      	    (v4) edge (v5)
+    			      	    (v5) edge (v1)
+    			      	    (v6) edge (v7)
+    			      	    (v7) edge (v8)
+    			      	    (v8) edge (v9)
+    			      	    (v9) edge (v10)
+    			      	    (v10) edge (v2);
+	\path[->, bend right] (v3) edge (v11)
+    			      	    (v11) edge (v12)
+    			      	    (v12) edge (v13)
+    			      	    (v13) edge (v14)
+    			      	    (v14) edge (v15)
+    			      	    (v15) edge (v3);
+\end{tikzpicture}
+\caption{Граф-ромашка с $n = 3, k_1 = 1, k_2 = 2, k_3 = 2$.}
+\end{figure}
+
+Заметим, что индекс цикличности такого графа равен $n$. Найдём границу периодичности для него.
+
+\begin{theorem}
+Рассмотрим $(k_1, \dots, k_n)$-ромашку. Пусть $k = \max\limits_{i} k_i$, а $d$ --- наибольшее расстояние между двумя вершинами главного цикла, к которым подвешен цикл наибольшей длины $kn$ (если такая вершина всего одна, то $d = 0$). Тогда граница периодичности для такого графа равна:
+\begin{equation*}
+T = (2k - 1)n + d - 1.
+\end{equation*}
+\end{theorem}
+\begin{proof}
+Обозначим через $\accentset{\circ}{d}(u, v)$ наименьшую длину пути из вершины $u$ в вершину~$v$, проходящего хотя бы через одну вершину главного цикла.
+
+Разобьём доказательство на две части: сначала докажем, что \begin{equation*}
+T = \max\limits_{u, v} \accentset{\circ}{d}(u, v) - n + 1,
+\end{equation*}
+а потом докажем, что \begin{equation*}
+\max\limits_{u, v} \accentset{\circ}{d}(u, v) = 2kn - 2 + d.
+\end{equation*}
+
+Докажем первую часть. Для $0 \le i < n$ обозначим через $T_i$ минимальное такое число, что если для произвольных вершин $u, v$ между ними есть путь длины, сравнимой с $i$ по модулю $n$, то между ними есть и путь длины ровно $T_i$. Определение $T$ похоже на определение \ref{MDefinition}. Заметим, что $T_i \equiv i \pmod{n}$, и $T = \max\limits_{0 \le i < n} T_i - n + 1$ --- рассуждения тут аналогичны рассуждениям из леммы \ref{algorithm:lemma1}. Покажем, что $\max\limits_{0 \le i < n} T_i = \max\limits_{u, v} \accentset{\circ}{d}(u, v)$.
+
+Для двух вершин $u, v$ через $v - u$ обозначим остаток при делении длины некоторого пути от $u$ до $v$ на $n$. Так как индекс цикличности рассматриваемого графа равен $n$, то величина $v - u$ не зависит от выбора пути (по \ref{cyclicityPaths}).
+
+Покажем, что $T_i = \max\limits_{v - u = i} \accentset{\circ}{d}(u, v)$. Неравенство $T_i \le \max\limits_{v - u = i} \accentset{\circ}{d}(u, v)$ очевидно, так как если между двумя вершинами есть путь длины $t$, проходящий через главный цикл, то между ними есть путь длины $t + \lambda n$ для любого натурального $\lambda$.
+
+Покажем обратное неравенство: $T_i \ge \max\limits_{v - u = i} \accentset{\circ}{d}(u, v)$. Пусть максимум правой части достигается при $u = u_0, v = v_0$. Предположим противное: $T_i < \accentset{\circ}{d}(u_0, v_0)$, или, что равносильно, $T_i \le \accentset{\circ}{d}(u_0, v_0) - n$ (так как $T_i \equiv i \pmod{n}$). Значит, от $u_0$ до $v_0$ существует путь длины $\accentset{\circ}{d}(u_0, v_0) - n$, не проходящий через главный цикл. Следовательно, эти вершины лежат в одном неглавном цикле. Значит, длина этого неглавного цикла равна $n$, так как между $u_0$ и $v_0$ есть также и путь длины $\accentset{\circ}{d}(u_0, v_0)$. Следовательно, $\accentset{\circ}{d}(u_0, v_0) \le 2n - 2$, и $T_i \le \accentset{\circ}{d}(u_0, v_0) -n \le n - 2$ --- противоречие, так как при $i = n - 1$ должно выполняться неравенство $T_{n - 1}  \ge n - 1$. Значит, $T_i \ge \max\limits_{v - u = i} \accentset{\circ}{d}(u, v)$.
+
+Перейдём ко второй части. Пусть вершины $u, v$ лежат в $i$-ом и $j$-ом неглавных циклах соответстенно. Тогда, если максимум функции $\accentset{\circ}{d}$ достигается на этих $u, v$, то $u$ --- следующая после $i$ вершина $i$-ого неглавного цикла, а $v$ --- идущая перед $j$ вершина $j$-ого неглавного цикла. Длина такого пути равна $k_in + k_jn - 2 + \accentset{\circ}{d}(i, j)$ (в этом случае $\accentset{\circ}{d}(i, j)$ --- расстояние от вершины $i$ до вершины $j$, так как обе вершины лежат на главном цикле).
+
+Расстояние между двумя вершинами главного цикла не превосходит $n - 1$, поэтому максимум достигается, когда сумма $k_i + k_j$ максимальна, то есть когда она равна $2k$. Осталось максимизировать расстояние $\accentset{\circ}{d}(i, j)$.
+\end{proof}
+
+\begin{thebibliography}{9}
+
+\bibitem{maxAlgebraicPowers}
+S. Sergeev, \textit{Max algebraic powers of irreducible matrices in the periodic regime: An application of cyclic classes.} Linear Algebra and its Applications. \textbf{431} (2009), 1325–1339.
+
+\bibitem{15WeakCSRExpantion}
+G. Merlet, T. Nowak, S. Sergeev, \textit{Weak CSR expansions and transience bounds in max-plus algebra.}
+Linear Algebra and its Applications. \textbf{461} (2014), 163–199.
+
+\bibitem{bounds}
+A. Kennedy-Cochran-Patrick, G. Merlet, T. Nowak, S. Sergeev,
+\textit{New bounds on the periodicity transient of the powers of a tropical matrix: Using cyclicity and factor rank.}
+Linear Algebra and its Applications. \textbf{611} (2021), 279-309.
+
+\bibitem{21CSRExpansionsOfMatrixPowersInMaxAlgebra}
+S. Sergeev, H. Schneider,
+\textit{CSR expansions of matrix powers in max algebra.} Transactions of the American Mathematical Society. December 2009.
+
+\bibitem{cyclicity}
+A. Guterman, E. Kreines, C. Thomassen,
+\textit{Linear transformations of tropical matrices
+preserving the cyclicity index.}
+Special Matrices. \textbf{9} (2021), 112-118.
+
+\bibitem{combinatorialMatrixTheory}
+R. Brualdi, H. Ryser, \textit{Combinatorial matrix theory.} Cambridge: Cambridge University Press, 1991.
+
+\bibitem{maxPlusAtWork}
+B. Heidergott, G.J. Olsder, J.van der Woude, \textit{Max Plus at Work}, Princeton University Press (2006).
+
+\bibitem{kLocalExponent} 
+S. Chen, B. Liu, \textit{The kth local exponent of doubly symmetric primitive matrices.} Applied Mathematics Letters. \textbf{19} (2006), 392–397.
+
+\bibitem{synchronizationAndLinearity}
+F. Baccelli, G. Cohen, G.-J. Olsder, J.-P. Quadrat, \textit{Synchronization and Linearity: an Algebra for Discrete Event Systems.} Wiley, 1992.
+
+\bibitem{onVisualizationScaling}
+S. Sergeev , H. Schneider , P. Butkovič, \textit{On visualization scaling, subeigenvectors and Kleene stars in max algebra.}
+Linear Algebra and its Applications. \textbf{431} (2009), 2395–2406.
+
+\end{thebibliography}
+
+N. Shaposhnik. Transient for bouquet of cycles.
+
+Keywords: max-plus, digraphs, matrix powers, periodicity, transient, bouquets of cycles.
+
+
+\end{document}
